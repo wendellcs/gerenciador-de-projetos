@@ -1,0 +1,52 @@
+@use '../../assets/sass/utilities'
+@use '../../assets/sass/variables'
+@use '../../assets/sass/button'
+    
+.container-login
+    .login-form
+        display: flex
+        flex-direction: column
+        align-items: center
+        border-radius: 50px
+        border: 1px solid variables.$primary-color 
+        width: 80%
+        max-width: 480px
+        margin: 135px auto
+        height: 600px
+        background-color: variables.$bg-medium-color
+
+        .form-title 
+            font-size: 2.8rem
+            margin-top: 70px
+            margin-bottom: 40px
+
+        .form-box 
+            width: 80%
+            max-width: 380px
+            display: flex
+            flex-direction: column 
+            gap: 16px
+
+            &:not(:first-of-type)
+                margin-top: 30px
+
+            input
+                width: 100%
+                max-width: 380px
+                @include utilities.form-inputs-style
+
+        .btn.form
+            margin-top: 70px
+
+        .form-text 
+            margin-top: 30px
+            font-family: 'Klee One', sans-serif
+            text-align: center
+
+            p 
+                margin-bottom: 5px
+
+            a 
+                color: variables.$text-color
+            
+            

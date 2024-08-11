@@ -1,0 +1,17 @@
+@use '../../assets/sass/utilities'
+@use '../../assets/sass/variables'
+
+.container-header 
+    @include utilities.center-elements
+    background-color: variables.$bg-medium-color
+    height: 75px
+    border-bottom: 2px solid variables.$primary-color
+    
+    .project-title
+        color: variables.$primary-color
+        letter-spacing: 1px
+
+    &.login 
+        justify-content: center
+        
+

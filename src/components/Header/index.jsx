@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
 import './header.sass'
-export default function Header(page){
-    const [_class, _setClass] = useState(null)
+export default function Header(headerStyle){
+    const [style, setStyle] = useState(null)
     useEffect(( ) => {
-        if(page){
-            _setClass(page.page)
+        if(headerStyle){
+            setStyle(headerStyle.headerStyle)
         }
-    }, [page])
+    }, [headerStyle])
 
     return (
-        <div className={`container-header ` + _class}>
-            Header
-        </div>
+        <header className={`container-header ` + style}>
+            <h1 className='project-title'>Gerenciador de Projetos</h1>
+        </header>
     )
 }
