@@ -1,14 +1,69 @@
 @use './_variables'
-// Mixins
 
-@mixin center-elements
+// Placeholder Selectors
+%center-elements
     display: flex
     justify-content: center
     align-items: center
+
+%form-box
+    width: 80%
+    max-width: 380px
+    display: flex
+    flex-direction: column 
+    gap: 16px
+
+%form-text 
+    margin-top: 20px
+    font-family: 'Klee One', sans-serif
+    text-align: center
     
-@mixin form-inputs-style
+    p 
+        margin-bottom: 5px
+
+    a 
+        color: variables.$text-color
+
+// Mixins
+@mixin input-style($width, $max-width)
     height: 40px
     border: 1px solid variables.$primary-color
     border-radius: 12px
     background-color: variables.$bg-dark-color
     color: variables.$text-color
+    width: $width
+    max-width: $max-width
+
+@mixin form-title($width, $height)
+    font-size: 2.8rem
+    margin-top: 70px
+    margin-bottom: 40px
+    position: relative
+
+    &:before , &:after 
+        content: ''
+        width: $width
+        height: $height
+        position: absolute
+       
+    &:before 
+        background-color: variables.$secondary-light-color
+        right: 0
+        top: -8px
+
+    &:after 
+        background-color: variables.$primary-color
+        left: 0
+        bottom: -8px
+
+@mixin form-style($height)
+    display: flex
+    flex-direction: column
+    align-items: center
+    border-radius: 50px
+    border: 1px solid variables.$primary-color 
+    width: 80%
+    max-width: 480px
+    margin: 135px auto
+    background-color: variables.$bg-medium-color
+    height: $height

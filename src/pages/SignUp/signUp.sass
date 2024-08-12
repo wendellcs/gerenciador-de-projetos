@@ -1,0 +1,35 @@
+@use '../../assets/sass/utilities'
+
+.container-signup
+    .signup-form 
+        @include utilities.form-style(620px)
+
+        &-title
+            @include utilities.form-title(110px, 5px)
+
+        &-box
+            @extend %form-box
+
+            &:not(:first-of-type)
+                margin-top: 20px
+
+            input 
+                @include utilities.input-style(100%,380px)
+
+        .password-area
+            display: flex
+            justify-content: space-between
+            max-width: 380px
+            width: 80%
+            
+            .password-box
+                margin-top: 20px
+                max-width: 165px
+                width: 100%
+            
+                input 
+                    margin-top: 16px
+                    @include utilities.input-style(100%, 165px)
+
+        &-text
+            @extend %form-text

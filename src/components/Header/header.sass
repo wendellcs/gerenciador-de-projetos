@@ -2,7 +2,7 @@
 @use '../../assets/sass/variables'
 
 .container-header 
-    @include utilities.center-elements
+    @extend %center-elements
     background-color: variables.$bg-medium-color
     height: 75px
     border-bottom: 2px solid variables.$primary-color
@@ -13,5 +13,3 @@
 
     &.login 
         justify-content: center
-        
-

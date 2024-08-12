@@ -4,49 +4,21 @@
     
 .container-login
     .login-form
-        display: flex
-        flex-direction: column
-        align-items: center
-        border-radius: 50px
-        border: 1px solid variables.$primary-color 
-        width: 80%
-        max-width: 480px
-        margin: 135px auto
-        height: 600px
-        background-color: variables.$bg-medium-color
+        @include utilities.form-style(600px)
 
-        .form-title 
-            font-size: 2.8rem
-            margin-top: 70px
-            margin-bottom: 40px
+        &-title 
+            @include utilities.form-title(65px, 5px)
 
-        .form-box 
-            width: 80%
-            max-width: 380px
-            display: flex
-            flex-direction: column 
-            gap: 16px
+        &-box 
+            @extend %form-box
 
             &:not(:first-of-type)
                 margin-top: 30px
 
             input
-                width: 100%
-                max-width: 380px
-                @include utilities.form-inputs-style
+                @include utilities.input-style(100%,380px)
 
-        .btn.form
-            margin-top: 70px
-
-        .form-text 
-            margin-top: 30px
-            font-family: 'Klee One', sans-serif
-            text-align: center
-
-            p 
-                margin-bottom: 5px
-
-            a 
-                color: variables.$text-color
+        &-text 
+            @extend %form-text
             
             

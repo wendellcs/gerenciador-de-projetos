@@ -8,26 +8,24 @@ export default function SignIn(){
             <Header headerStyle='login'/>
             
             <form className='login-form'>
-                <h2 className='form-title'>Faça Login</h2>
+                <h2 className='login-form-title'>Faça login</h2>
 
-                <div className='form-box'>
+                <div className='login-form-box'>
                     <label>Seu e-mail:</label>
                     <input type='email' placeholder='exemplo@exemplo.com'/>
                 </div>
-                <div className='form-box'>
+                <div className='login-form-box'>
                     <label>Sua senha:</label>
                     <input type='password' placeholder='********'/>
                 </div>
 
                 <button className='btn form' type='submit'>Entrar</button>
 
-                <div className='form-text'>
+                <div className='login-form-text'>
                     <p>Ainda não tem uma conta?</p>
-                    {/* Colocar para onde o link leva com o to = {} */}
-                    <Link>Crie uma aqui</Link>
+                    <Link to={'/register'}>Crie uma aqui</Link>
                 </div>
             </form>
         </div>
-     
     )
 }
