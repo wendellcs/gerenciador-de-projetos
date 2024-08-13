@@ -4,12 +4,44 @@
 .container-header 
     @extend %center-elements
     background-color: variables.$bg-medium-color
-    height: 75px
+    height: 60px
     border-bottom: 2px solid variables.$primary-color
+    padding: 0 120px
+    justify-content: space-between
     
     .project-title
         color: variables.$primary-color
         letter-spacing: 1px
+
+    .header-links 
+        display: flex
+        align-items: center
+        width: 80%
+        max-width: 540px
+        border-radius: 12px
+        background-color: variables.$bg-color 
+        height: 45px
+        border: 1px solid variables.$secondary-light-color
+        padding: 0 20px
+
+        &-ul 
+            display: flex
+            align-items: center
+            width: 100%
+
+            a 
+                color: variables.$secondary-light-color
+                font-weight: bold 
+                font-size: 2.2rem
+                
+
+            &-icons 
+                display: flex
+                margin-left: auto
+                gap: 10px
+
+                svg 
+                    vertical-align: middle
 
     &.login 
         justify-content: center

@@ -1,0 +1,40 @@
+@use '../../assets/sass/_icon'
+@use '../../assets/sass/_variables'
+@use '../../assets/sass/utilities'
+
+.home-container 
+    padding: 0 120px
+
+    .home-header 
+        margin-top: 80px
+        width: 100%
+        display: grid 
+        grid-template-columns: repeat(3 , 33%)
+
+        &-form 
+            width: 100%
+            max-width: 300px
+            position: relative
+            input
+                @include utilities.input-style(100%, 300px)
+                border: 1px solid variables.$secondary-light-color
+                background-color: variables.$bg-color 
+
+            .icon 
+                width: 2.8rem
+                position: absolute
+                right: 10px
+                top: 3px
+                z-index: 9
+
+        &-title 
+            text-align: center
+            font-size: 3.2rem
+            color: variables.$primary-color
+
+        .filter 
+            margin: 0 auto
+            font-size: 38px 
+            color: variables.$primary-color
+        
+        
