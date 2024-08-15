@@ -3,8 +3,13 @@ import Header from '../../components/Header'
 import { CiSearch } from "react-icons/ci";
 import { IoMdOptions } from "react-icons/io";
 
+import { useSelector } from 'react-redux';
+import rootReducer from '../../redux/root-reducer';
 
 export default function Home(){
+    const { user } = useSelector((rootReducer) => rootReducer.user)
+    console.log(user)
+
     return (
        <div>
         <Header/>

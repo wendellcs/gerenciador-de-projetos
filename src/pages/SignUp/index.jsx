@@ -4,16 +4,25 @@ import { useState } from 'react'
 import Header from '../../components/Header/index.jsx'
 import './signUp.sass'
 
+import { useSelector } from 'react-redux'
+import  rootReducer  from '../../redux/root-reducer.jsx'
+
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import {auth, db} from '../../services/firebaseConnections.jsx'
+import { doc, setDoc } from 'firebase/firestore'
+
 export default function SignUp(){
-    const [userName, setUserName] = useState('')
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
-    function handleSubmit(e){
+    const { user } = useSelector((rootReducer) => rootReducer.user)
+
+    async function handleSubmit(e){
         e.preventDefault()
 
-        if(!userName && !email && !password && !confirmPassword){
+        if(!name && !email && !password && !confirmPassword){
             alert('Please fill all the fields below')
         }
 
@@ -21,7 +30,12 @@ export default function SignUp(){
             alert('Passwords are not equal')
         }
 
+        await createUserWithEmailAndPassword(auth, email, password)
+            .then( async (value) => {
+                let uid = value.user.uid 
 
+                console.log(uid)
+            })
     }
 
     return (
@@ -33,7 +47,7 @@ export default function SignUp(){
 
                 <div className='signup-form-box'>
                     <label>Seu nome:</label>
-                    <input type='text' value={userName} onChange={(e) => {setUserName(e.target.value)}} placeholder='Seu nome'/>
+                    <input type='text' value={name} onChange={(e) => {setName(e.target.value)}} placeholder='Seu nome'/>
                 </div>
 
                 <div className='signup-form-box'>
