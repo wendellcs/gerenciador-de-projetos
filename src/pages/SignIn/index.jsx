@@ -1,32 +1,46 @@
-import { Link } from 'react-router-dom'
-import './signIn.sass'
-import Header from '../../components/Header/index.jsx'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../../services/firebaseConnections.jsx'
+import { auth} from '../../services/firebaseConnections.jsx'
+import { setCurrentUser} from '../../redux/user/slice.jsx'
+
+import Header from '../../components/Header/index.jsx'
+import './signIn.sass'
 
 export default function SignIn(){
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
     async function handleSignIn(e){
         e.preventDefault()
 
-        console.log(password, email)
-
         if(!password || !email){
             alert('fields cannot be empty')
+            return 
         }
 
-        await signInWithEmailAndPassword(auth, email, password)
-            .then((value) => {
-                console.log(value.user)
-            }).catch(err => {
-                console.log(err)
-            })
-            
-    }
+        try {
+            const userCredentials = await signInWithEmailAndPassword(auth, email, password)
+            const user = userCredentials.user
 
+            dispatch(setCurrentUser({
+                email: user.email, 
+                uid: user.uid,
+                online: true
+            }))
+
+            setEmail('')
+            setPassword('')
+
+            navigate('/')
+        } catch (e) {
+            console.log(e.message)
+        }
+    }
 
     return (
         <div className='container-login'>

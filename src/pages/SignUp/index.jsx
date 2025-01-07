@@ -1,15 +1,11 @@
-import {Link} from 'react-router-dom'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import {Link, useNavigate} from 'react-router-dom'
+import {auth} from '../../services/firebaseConnections.jsx'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 import Header from '../../components/Header/index.jsx'
 import './signUp.sass'
-
-import { useSelector } from 'react-redux'
-import  rootReducer  from '../../redux/root-reducer.jsx'
-
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import {auth, db} from '../../services/firebaseConnections.jsx'
-import { doc, setDoc } from 'firebase/firestore'
 
 export default function SignUp(){
     const [name, setName] = useState('')
@@ -17,7 +13,8 @@ export default function SignUp(){
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
-    const { user } = useSelector((rootReducer) => rootReducer.user)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     async function handleSubmit(e){
         e.preventDefault()
@@ -30,12 +27,27 @@ export default function SignUp(){
             alert('Passwords are not equal')
         }
 
-        await createUserWithEmailAndPassword(auth, email, password)
-            .then( async (value) => {
-                let uid = value.user.uid 
+        try {
+            const userCredentials = createUserWithEmailAndPassword(auth, email, password)
+            const user = userCredentials.user
 
-                console.log(uid)
-            })
+            dispatch(setCurrentUser({
+                name: user.name,
+                email: user.email, 
+                uid: user.uid,
+            }))
+
+            setName('')
+            setEmail('')
+            setPassword('')
+            setConfirmPassword('')
+            
+            navigate('/')
+
+        } catch(err) {
+            console.log(err)
+            alert('Erro ao cadastrar, tente novamente')
+        }  
     }
 
     return (

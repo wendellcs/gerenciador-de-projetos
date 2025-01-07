@@ -1,32 +1,44 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Modificar conforme necessário
-const initialState = {
-    user: null
-}
-
-// Modelo User
-// user: {
-//     name: 'Teste User',
-//     uid: 1,
-//     email: 'exemplar@example.com',
-//     projects: [{
-//         projectName:'projeto 1',
-//         projectState: 'not started',
-//         projectTime: '',
-//         projectTasks: [{
-//             task: 'tarefa 1',
-//             status: 'done'
-//         }]
-//     }]
-// }
-
 export const userSlice = createSlice({
     name: 'user',
-    initialState,
+    initialState: {
+        currentUser: {
+            email: '',
+            uid: '',
+            online: false,
+            userData: {
+                name: '',
+                projects: []
+            }
+        }
+    },
     reducers: {
+        setCurrentUser:(state, action) => {
+            state.currentUser = action.payload
+        },
+
+        // Modificar isso
+        addProject: (state , action) => {
+            state.currentUser.projects.push(action.payload)
+        },
+
+        logout: (state) => {
+            state.currentUser = {  
+                email: '',
+                uid: '',
+                projects: [],
+                online: false,
+                userData: {
+                    name: '',
+                    projects: []
+                }
+            }
+        }
         
     }
 })
+
+export const {setCurrentUser, addProject, logout} = userSlice.actions
 
 export default userSlice.reducer;

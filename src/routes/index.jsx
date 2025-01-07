@@ -7,11 +7,11 @@ import Manage from '../pages/Manage'
 export default function RoutesApp(){
     return (
         <Routes>
-            <Route path="/" element={<SignIn/>} /> 
+            <Route path="/login" element={<SignIn/>} /> 
             <Route path="/register" element={<SignUp/>} />
 
             {/* Private */}
-            <Route path='/home' element={<Home/>}/>
+            <Route path='/' element={<Home/>}/>
             <Route path='/manage' element={<Manage/>}/>
      
         </Routes>

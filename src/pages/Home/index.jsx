@@ -1,14 +1,20 @@
-import './home.sass'
-import Header from '../../components/Header'
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { CiSearch } from "react-icons/ci";
 import { IoMdOptions } from "react-icons/io";
 
-import { useSelector } from 'react-redux';
-import rootReducer from '../../redux/root-reducer';
+import Header from '../../components/Header'
+import './home.sass'
 
 export default function Home(){
-    const { user } = useSelector((rootReducer) => rootReducer.user)
-    console.log(user)
+    const [projectList , setProjectList] = useState([])
+    const [user, setUser] = useState('')
+    
+    const userData = useSelector((state) => state.user.currentUser)
+
+    useEffect(() => {
+        setUser(userData)
+    }, [userData])
 
     return (
        <div>
@@ -24,6 +30,14 @@ export default function Home(){
             </div>
 
             <div className='home-projects'>
+
+                Seus projetos aparecem aqui
+
+                {user && (
+                    <p>
+                        {user.email}
+                    </p>
+                )}
                 
             </div>
         </div>
