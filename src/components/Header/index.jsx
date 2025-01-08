@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { FaGithub, FaLinkedin  } from "react-icons/fa";
 import { CiGlobe } from "react-icons/ci";
+import { Link } from 'react-router-dom';
 
 import './header.sass'
 export default function Header({headerStyle}){
@@ -19,7 +20,8 @@ export default function Header({headerStyle}){
             {!style && 
                 <nav className='header-links'>
                     <ul className='header-links-ul'>
-                        <li><a href="#">Home</a></li>
+                        <li><Link to={'/'}>Home</Link></li>
+
                         <div className='header-links-ul-icons'>
                             <li><a href="#"><FaGithub className='icon light'/></a></li>
                             <li><a href="#"><CiGlobe className='icon light'/></a></li>
