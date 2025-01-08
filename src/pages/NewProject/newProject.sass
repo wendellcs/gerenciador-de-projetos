@@ -1,0 +1,110 @@
+@use '../../assets/sass/_utilities'
+@use '../../assets/sass/_variables'
+
+.new-container
+    @extend %center-elements
+    flex-direction: column
+    
+    form 
+        @include utilities.form-style(auto, 600px)
+        @extend %form-text 
+
+        .title 
+            font-size: 2.8rem
+            margin: 30px 0
+
+        .form-box
+            display: flex
+            flex-direction: column
+            gap: 15px
+            margin-bottom: 20px
+
+            input 
+                @include utilities.input-style(100%, 380px)
+                border-radius: 8px
+                
+            .project-status
+                display: flex
+                gap: 20px
+
+                .status 
+                    @extend %center-elements
+                    width: 100px
+                    height: 45px
+                    border-radius: 8px
+                    background-color: variables.$bg-dark-color
+                    cursor: pointer
+                    transition: 0.4s
+                    border: 1px solid #FFF
+
+                    &:hover 
+                        transform: scale(1.05)
+
+                    &.not-started.checked
+                        border-color: nth(variables.$light-color, 1)
+                        .icon 
+                            color: nth(variables.$light-color, 1)
+
+                    &.paused.checked
+                        border-color: nth(variables.$light-color, 2)
+                        .icon 
+                            color: nth(variables.$light-color, 2)
+
+                    &.in-progress.checked
+                        border-color: nth(variables.$light-color, 3)
+                        .icon 
+                            color: nth(variables.$light-color, 3)
+
+                    &.completed.checked
+                        border-color: nth(variables.$light-color, 4)
+                        .icon 
+                            color: nth(variables.$light-color, 4)
+
+            .text
+                font-weight: bold
+                font-size: 1.8rem
+
+                &.not-started 
+                    color: nth(variables.$light-color, 1)
+
+                &.paused
+                    color: nth(variables.$light-color, 2)
+
+                &.in-progress
+                    color: nth(variables.$light-color, 3)
+
+                &.completed
+                    color: nth(variables.$light-color, 4)
+            
+            .description 
+                width: 350px
+                height: 100px
+                background-color: variables.$bg-dark-color
+                border: 1px solid variables.$primary-color 
+                color: variables.$text-color
+                padding: 5px 10px
+                border-radius: 8px
+                resize: none
+                font-size: 1.6rem
+
+            .date-container 
+                display: flex
+                gap: 50px
+
+                .box 
+                    border: 1px solid variables.$primary-color
+                    padding: 5px 10px
+                    border-radius: 8px
+                    background-color: variables.$bg-dark-color
+
+                    label 
+                        font-size: 1.4rem 
+                    p 
+                        font-size: 1.8rem
+                        color: variables.$primary-color
+
+                        &.completion-date 
+                            color: variables.$secondary-color
+                            
+                            &.done 
+                                color: variables.$primary-color

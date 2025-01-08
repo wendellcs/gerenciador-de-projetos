@@ -56,14 +56,14 @@
         left: 0
         bottom: -8px
 
-@mixin form-style($height)
+@mixin form-style($height , $width: 480px)
     display: flex
     flex-direction: column
     align-items: center
     border-radius: 50px
     border: 1px solid variables.$primary-color 
     width: 80%
-    max-width: 480px
+    max-width: $width
     margin: 135px auto
     background-color: variables.$bg-medium-color
     height: $height

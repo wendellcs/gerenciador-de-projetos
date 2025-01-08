@@ -3,6 +3,7 @@ import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
 import Home from '../pages/Home'
 import Manage from '../pages/Manage'
+import NewProject from '../pages/NewProject'
 
 export default function RoutesApp(){
     return (
@@ -13,6 +14,7 @@ export default function RoutesApp(){
             {/* Private */}
             <Route path='/' element={<Home/>}/>
             <Route path='/manage' element={<Manage/>}/>
+            <Route path='/newproject' element={<NewProject/>}/>
      
         </Routes>
     )
