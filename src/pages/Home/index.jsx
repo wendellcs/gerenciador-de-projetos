@@ -5,6 +5,7 @@ import { IoMdOptions } from "react-icons/io";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 
+import LoginAlert from '../../components/LoginAlert';
 import Header from '../../components/Header'
 import './home.sass'
 
@@ -46,7 +47,7 @@ export default function Home(){
                             oi
                         </div>
                     ):(
-                        <h2 className='projects-container-loginMessage'>Faça <Link className='link' to={'/login'}>login</Link> para ver seus projetos</h2>
+                      <LoginAlert message={'para ver seus projetos.'}/>
                     )}
                     
                 </div>

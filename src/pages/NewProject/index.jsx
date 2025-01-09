@@ -1,10 +1,15 @@
 import './newProject.sass'
 import Header from '../../components/Header'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { IoCheckmarkDoneCircleOutline, IoCodeWorkingSharp } from "react-icons/io5";
 import { CiImageOn } from "react-icons/ci";
 import { MdCancel } from "react-icons/md";
 import { GiNightSleep } from "react-icons/gi";
+
+import {db} from "../../services/firebaseConnections"
+import { useSelector } from 'react-redux';
+
+import LoginAlert from '../../components/LoginAlert';
 
 export default function NewProject(){
     const [checkNotStarted, setCheckNotStarted] = useState(true)
@@ -19,6 +24,14 @@ export default function NewProject(){
     const [startDate, setStartDate] = useState('')
     const [completionDate, setCompletionDate] = useState('')
     const [projectImage, setProjectImage] = useState(null)
+
+    const [user, setUser] = useState()
+
+    const userData = useSelector(state => state.user.currentUser)
+
+    useEffect(() => {
+        setUser(userData)
+    }, [userData])
 
     function check(element){
         switch(element){
@@ -59,7 +72,7 @@ export default function NewProject(){
         setProjectStatus(checkMessage[0])
     }
 
-    function addProject(e){
+    async function addProject(e){
         e.preventDefault()
 
         const dates = [startDate, completionDate]
@@ -74,6 +87,8 @@ export default function NewProject(){
 
         // Guardar os dados no storage
         console.log(data)
+
+        await db.collection('')
     }
 
     return (
@@ -82,7 +97,9 @@ export default function NewProject(){
             <div className="new-container">
                 <h1>Adicionar Projeto</h1>
                 
-                <form>
+                {user.email ? (
+
+                    <form>
                     <h2 className='title'>Informações do projeto</h2>
                     <div className="form-box">
                         <label htmlFor = 'project-name'>Nome do projeto</label>
@@ -148,6 +165,9 @@ export default function NewProject(){
 
                     <button className='btn add-project form' onClick={(e) => addProject(e)}>Adicionar</button>
                 </form>
+                ):(
+                    <LoginAlert message={'para acessar essa página.'}/>
+                )}
             </div>
         </main>
     )
