@@ -5,9 +5,13 @@
     @extend %center-elements
     flex-direction: column
     
+    h1 
+        margin: 50px 0
+
     form 
         @include utilities.form-style(auto, 600px)
         @extend %form-text 
+        margin: 0 0 100px 0
 
         .title 
             font-size: 2.8rem
@@ -108,3 +112,29 @@
                             
                             &.done 
                                 color: variables.$primary-color
+
+            .preview 
+                width: 280px
+                height: 190px
+                border: 1px solid variables.$primary-color
+                border-radius: 12px
+                position: relative
+                background-color: variables.$bg-dark-color
+                
+                .icon 
+                    position: absolute
+                    top: calc(50% - 15px)
+                    left: calc(50% - 15px)
+                    
+            
+            .project-image 
+                border: 0
+                display: flex
+                width: 235px
+                height: 45px
+                padding: 10px
+                cursor: pointer
+                margin: 0 auto
+
+        .btn.add-project
+            margin: 30px 0 
