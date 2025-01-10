@@ -7,7 +7,8 @@ import { MdCancel } from "react-icons/md";
 import { GiNightSleep } from "react-icons/gi";
 
 import {db} from "../../services/firebaseConnections"
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addUserProjects } from '../../redux/user/slice'
 
 import LoginAlert from '../../components/LoginAlert';
 
@@ -28,6 +29,7 @@ export default function NewProject(){
     const [user, setUser] = useState()
 
     const userData = useSelector(state => state.user.currentUser)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setUser(userData)
@@ -72,7 +74,7 @@ export default function NewProject(){
         setProjectStatus(checkMessage[0])
     }
 
-    async function addProject(e){
+    function addProject(e){
         e.preventDefault()
 
         const dates = [startDate, completionDate]
@@ -82,13 +84,19 @@ export default function NewProject(){
             status: projectStatus,
             date: dates,
             description: projectDescription,
-            image: projectImage
+            image: projectImage,
+            userUid: user.uid
         }
 
         // Guardar os dados no storage
         console.log(data)
+        console.log(user)
 
-        await db.collection('')
+        dispatch(addUserProjects(data))
+
+        console.log(user)
+
+        // await db.collection('')
     }
 
     return (
@@ -97,7 +105,7 @@ export default function NewProject(){
             <div className="new-container">
                 <h1>Adicionar Projeto</h1>
                 
-                {user.email ? (
+                {user && user.email ? (
 
                     <form>
                     <h2 className='title'>Informações do projeto</h2>

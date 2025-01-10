@@ -31,6 +31,10 @@ export default function SignUp(){
             const userCredentials = createUserWithEmailAndPassword(auth, email, password)
             const user = userCredentials.user
 
+            // Salvar as informações do usuário no banco de dados
+            // Buscar informações compatíveis ao usuário quando o mesmo fizer login
+
+            // Modificar isso conforme necessário
             dispatch(setCurrentUser({
                 name: user.name,
                 email: user.email, 
@@ -45,7 +49,6 @@ export default function SignUp(){
             navigate('/')
 
         } catch(err) {
-            console.log(err)
             alert('Erro ao cadastrar, tente novamente')
         }  
     }
@@ -53,7 +56,6 @@ export default function SignUp(){
     return (
         <div className='container-signup'>
             <Header headerStyle = 'login'/>
-            
             <form className='signup-form'>
                 <h2 className='signup-form-title'>Faça seu cadastro</h2>
 
@@ -82,7 +84,7 @@ export default function SignUp(){
 
                 <div className='signup-form-text'>
                     <p>Já possui uma conta?</p>
-                    <Link to={'/'}>Crie uma aqui para fazer login</Link>
+                    <Link to={'/login'}>Crie uma aqui para fazer login</Link>
                 </div>
             </form>
         </div>

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
@@ -7,10 +8,7 @@ export const userSlice = createSlice({
             email: '',
             uid: '',
             online: false,
-            userData: {
-                name: '',
-                projects: []
-            }
+            projects: [{}]
         }
     },
     reducers: {
@@ -18,8 +16,22 @@ export const userSlice = createSlice({
             state.currentUser = action.payload
         },
 
-        // Modificar isso
-        addProject: (state , action) => {
+        addUserProjects: (state , action) => {
+            const {name, userUid} = action.payload
+
+            if ( !name ){
+                return alert('O projeto precisa ter um nome')
+            }
+
+            if (!userUid) {
+                alert('Tivemos um problema ao adicionar o projeto.')
+                throw new Error('This project should have received the users uid.')
+            }
+
+            if (state.currentUser.projects.find(p => p.name === name)) {
+                return alert('Já existe um projeto com esse nome.')
+            }
+
             state.currentUser.projects.push(action.payload)
         },
 
@@ -39,6 +51,6 @@ export const userSlice = createSlice({
     }
 })
 
-export const {setCurrentUser, addProject, logout} = userSlice.actions
+export const {setCurrentUser, addUserProjects, logout} = userSlice.actions
 
 export default userSlice.reducer;

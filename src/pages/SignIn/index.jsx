@@ -30,7 +30,8 @@ export default function SignIn(){
             dispatch(setCurrentUser({
                 email: user.email, 
                 uid: user.uid,
-                online: true
+                online: true,
+                projects: [{}]
             }))
 
             setEmail('')
