@@ -2,11 +2,12 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth} from '../../services/firebaseConnections.jsx'
+import { auth, db} from '../../services/firebaseConnections.jsx'
 import { setCurrentUser} from '../../redux/user/slice.jsx'
 
 import Header from '../../components/Header/index.jsx'
 import './signIn.sass'
+import { getDoc, doc } from 'firebase/firestore'
 
 export default function SignIn(){
     const [email, setEmail] = useState('')
@@ -27,11 +28,14 @@ export default function SignIn(){
             const userCredentials = await signInWithEmailAndPassword(auth, email, password)
             const user = userCredentials.user
 
+            const docRef = doc(db, 'users', user.uid)
+            const docSnap = await getDoc(docRef)
+
             dispatch(setCurrentUser({
-                email: user.email, 
+                name: docSnap.data().name,
+                email: email,
                 uid: user.uid,
-                online: true,
-                projects: [{}]
+                online: true
             }))
 
             setEmail('')

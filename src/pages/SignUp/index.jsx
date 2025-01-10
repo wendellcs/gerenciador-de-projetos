@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {Link, useNavigate} from 'react-router-dom'
-import {auth} from '../../services/firebaseConnections.jsx'
+import {auth , db} from '../../services/firebaseConnections.jsx'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 import Header from '../../components/Header/index.jsx'
 import './signUp.sass'
+import { setDoc , doc} from 'firebase/firestore'
+import { setCurrentUser } from '../../redux/user/slice'
 
 export default function SignUp(){
     const [name, setName] = useState('')
@@ -28,7 +30,7 @@ export default function SignUp(){
         }
 
         try {
-            const userCredentials = createUserWithEmailAndPassword(auth, email, password)
+            const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
             const user = userCredentials.user
 
             // Salvar as informações do usuário no banco de dados
@@ -36,10 +38,15 @@ export default function SignUp(){
 
             // Modificar isso conforme necessário
             dispatch(setCurrentUser({
-                name: user.name,
+                name: name,
                 email: user.email, 
                 uid: user.uid,
             }))
+
+            await setDoc(doc(db, 'users' , user.uid), {
+                name,
+                email
+            })
 
             setName('')
             setEmail('')
@@ -49,6 +56,7 @@ export default function SignUp(){
             navigate('/')
 
         } catch(err) {
+            console.log(err)
             alert('Erro ao cadastrar, tente novamente')
         }  
     }
