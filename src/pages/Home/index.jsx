@@ -4,6 +4,8 @@ import { CiSearch } from "react-icons/ci";
 import { IoMdOptions } from "react-icons/io";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { Link } from 'react-router-dom';
+import { collection, getDocs } from 'firebase/firestore'; 
+import {db} from "../../services/firebaseConnections"
 
 import LoginAlert from '../../components/LoginAlert';
 import Header from '../../components/Header'
@@ -18,6 +20,25 @@ export default function Home(){
     useEffect(() => {
         setUser(userData)
     }, [userData])
+
+    useEffect(() => {
+        async function getProjects(){
+            const querySnapshot = collection(db, 'projects') 
+            await getDocs(querySnapshot).then((snapshot) => {
+                const list = []
+
+                snapshot.forEach((doc) => {
+                    if(doc.data().userUid == user.uid){
+                        list.push({...doc.data(), id: doc.id })
+                    }
+                })
+
+                setProjectList(list)
+            })
+        }
+
+        getProjects()
+    }, [])
 
     return (
         <main>
@@ -41,7 +62,7 @@ export default function Home(){
                         <div className='conected'>
                             <div className='conected-projects'>
                                 {projectList.length > 0 && projectList.map((project) =>
-                                    <p></p>
+                                    <p key={project.id}>{project.name}</p>
                                 )}
                             </div>
                             oi
