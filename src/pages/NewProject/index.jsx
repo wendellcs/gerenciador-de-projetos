@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addUserProjects } from '../../redux/user/slice'
 
 import LoginAlert from '../../components/LoginAlert';
+import { collection, addDoc } from 'firebase/firestore';
 
 export default function NewProject(){
     const [checkNotStarted, setCheckNotStarted] = useState(true)
@@ -29,7 +30,6 @@ export default function NewProject(){
     const [user, setUser] = useState()
 
     const userData = useSelector(state => state.user.currentUser)
-    const dispatch = useDispatch()
 
     useEffect(() => {
         setUser(userData)
@@ -43,6 +43,7 @@ export default function NewProject(){
                 setCheckInProgress(false)
                 setCheckCompleted(false)
 
+                setProjectStatus('not-started')
                 setCheckMessage(['not-started', 'Projeto ainda não iniciado'])
                 break
             case 'paused':
@@ -51,6 +52,7 @@ export default function NewProject(){
                 setCheckInProgress(false)
                 setCheckCompleted(false)
 
+                setProjectStatus('paused')
                 setCheckMessage(['paused', 'Projeto pausado...'])
                 break
             case 'in-progress':
@@ -59,6 +61,7 @@ export default function NewProject(){
                 setCheckInProgress(true)
                 setCheckCompleted(false)
 
+                setProjectStatus('in-progress')
                 setCheckMessage(['in-progress', 'Trabalhando no projeto'])
                 break
             case 'completed':
@@ -67,36 +70,36 @@ export default function NewProject(){
                 setCheckInProgress(false)
                 setCheckCompleted(true)
 
+                setProjectStatus('completed')
                 setCheckMessage(['completed', 'Projeto finalizado!'])
                 break
         }
-
-        setProjectStatus(checkMessage[0])
     }
 
-    function addProject(e){
+    async function addProject(e){
         e.preventDefault()
 
         const dates = [startDate, completionDate]
 
-        const data = {
+        await addDoc(collection(db, 'projects'), {
             name: projectName,
-            status: projectStatus,
-            date: dates,
+            dates,
             description: projectDescription,
             image: projectImage,
+            status: projectStatus,
             userUid: user.uid
-        }
+        }).then(() => {
+            alert('Projeto adicionado')
 
-        // Guardar os dados no storage
-        console.log(data)
-        console.log(user)
-
-        dispatch(addUserProjects(data))
-
-        console.log(user)
-
-        // await db.collection('')
+            setProjectStatus('')
+            setProjectName('')
+            setProjectDescription('')
+            setStartDate('')
+            setCompletionDate('')
+            setProjectImage(null)   
+        }).catch(e => {
+            console.log(e.message)
+        })
     }
 
     return (

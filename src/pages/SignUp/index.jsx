@@ -33,10 +33,6 @@ export default function SignUp(){
             const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
             const user = userCredentials.user
 
-            // Salvar as informações do usuário no banco de dados
-            // Buscar informações compatíveis ao usuário quando o mesmo fizer login
-
-            // Modificar isso conforme necessário
             dispatch(setCurrentUser({
                 name: name,
                 email: user.email, 
