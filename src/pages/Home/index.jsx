@@ -62,7 +62,22 @@ export default function Home(){
                         <div className='conected'>
                             <div className='conected-projects'>
                                 {projectList.length > 0 && projectList.map((project) =>
-                                    <p key={project.id}>{project.name}</p>
+                                    <div className='project'>
+                                        <h3 className='project-title'>{project.name}</h3>
+
+                                        <div className="project-container">
+                                            <div className="project-container-image">
+                                                { project.image ? (
+                                                    <img src={project.image} alt={`Imagem do projeto ${project.name}`} />
+                                                ):(
+                                                    <img src='' alt='Imagem do projeto'/>
+                                                )}
+                                            </div>
+
+                                            <p className='project-container-description'>{project.description}</p>
+                                        </div>
+                                    </div>
+
                                 )}
                             </div>
                             oi
