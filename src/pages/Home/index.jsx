@@ -13,11 +13,13 @@ import { GiNightSleep } from 'react-icons/gi';
 
 import LoginAlert from '../../components/LoginAlert';
 import Header from '../../components/Header'
+import Loading from '../../components/Loading/script';
 import './home.sass'
 
 export default function Home(){
     const [projectList , setProjectList] = useState([])
     const [user, setUser] = useState('')
+    const [loading, setLoading] = useState(false)
     
     const userData = useSelector((state) => state.user.currentUser)
 
@@ -26,6 +28,7 @@ export default function Home(){
     }, [userData])
 
     useEffect(() => {
+        setLoading(true)
         async function getProjects(){
             const querySnapshot = collection(db, 'projects') 
             await getDocs(querySnapshot).then((snapshot) => {
@@ -37,12 +40,13 @@ export default function Home(){
                     }
                 })
 
+                setLoading(false)
                 setProjectList(list)
             })
         }
 
         getProjects()
-    }, [])
+    }, [user.uid])
 
     return (
         <main>
@@ -61,11 +65,15 @@ export default function Home(){
                     </div>
                 </section>
 
+                {loading && (
+                    <Loading/>
+                )}
+
                 <section className='projects-section'>
                     {user.email ? (
                         <div className='conected'>
                             {projectList.length > 0 && projectList.map((project) =>
-                                <div className='project'>
+                                <div className='project' key={project.id}>
                                     <h3 className='project-title'>{project.name}</h3>
 
                                     <div className='project-container'>
