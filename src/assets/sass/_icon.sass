@@ -12,3 +12,16 @@
 
     &-dark 
         color: variables.$secondary-color
+
+    &.not-started 
+        color: nth(variables.$light-color, 1)
+        border-color: nth(variables.$light-color, 1)
+
+    &.paused
+        color: nth(variables.$light-color, 2)
+
+    &.in-progress
+        color: nth(variables.$light-color, 3)
+
+    &.completed
+        color: nth(variables.$light-color, 4)

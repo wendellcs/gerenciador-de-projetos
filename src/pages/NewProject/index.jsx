@@ -8,7 +8,6 @@ import { GiNightSleep } from "react-icons/gi";
 
 import {db} from "../../services/firebaseConnections"
 import { useSelector, useDispatch } from 'react-redux';
-import { addUserProjects } from '../../redux/user/slice'
 
 import LoginAlert from '../../components/LoginAlert';
 import { collection, addDoc } from 'firebase/firestore';
