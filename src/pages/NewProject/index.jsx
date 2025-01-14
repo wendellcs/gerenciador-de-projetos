@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import LoginAlert from '../../components/LoginAlert';
 import { collection, addDoc } from 'firebase/firestore';
+import ProjectStatus from '../../components/ProjectStatus';
 
 export default function NewProject(){
     const [checkNotStarted, setCheckNotStarted] = useState(true)
@@ -121,19 +122,19 @@ export default function NewProject(){
 
                         <div className='project-status'>
                             <div className={checkNotStarted ? 'status not-started checked' : 'status not-started'}  onClick={() => {check('not-started')}}>
-                                <MdCancel className='icon not-started'/>
+                                <ProjectStatus status={'not-started'}/>
                             </div>
 
                             <div className={ checkPaused ? "status paused checked" : "status paused"} onClick={() => {check('paused')}}>
-                                <GiNightSleep className='icon paused'/>
+                                <ProjectStatus status={'paused'}/>
                             </div>
                       
                             <div className={ checkInProgress ? "status in-progress checked" : "status in-progress"} onClick={() => {check('in-progress')}}>
-                                <IoCodeWorkingSharp className='icon in-progress'/>
+                                <ProjectStatus status={'in-progress'}/>
                             </div>
 
                             <div className={ checkCompleted ? "status completed checked" : "status completed"} onClick={() => {check('completed')}}>
-                                <IoCheckmarkDoneCircleOutline className='icon completed'/>
+                                <ProjectStatus status={'completed'}/>
                             </div>
                         </div>
 

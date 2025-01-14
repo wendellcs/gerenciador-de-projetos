@@ -5,16 +5,15 @@ import { Link } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore'; 
 import { db } from '../../services/firebaseConnections'
 
-import { IoCheckmarkDoneCircleOutline, IoCodeWorkingSharp, IoAddCircleSharp } from 'react-icons/io5';
+import {IoAddCircleSharp } from 'react-icons/io5';
 import { CiSearch, CiSettings } from 'react-icons/ci';
 import { IoMdOptions } from 'react-icons/io';
-import { MdCancel } from 'react-icons/md';
-import { GiNightSleep } from 'react-icons/gi';
 
 import LoginAlert from '../../components/LoginAlert';
 import Header from '../../components/Header'
 import Loading from '../../components/Loading/script';
 import './home.sass'
+import ProjectStatus from '../../components/ProjectStatus';
 
 export default function Home(){
     const [projectList , setProjectList] = useState([])
@@ -89,15 +88,11 @@ export default function Home(){
                                             <p className='project-tasks'>5</p>
 
                                             <div className='project-status'>
-                                                {project.status == 'not-started' && <MdCancel className='icon not-started'/>}
-                                                {project.status == 'paused' && <GiNightSleep className='icon paused'/>}
-                                                {project.status == 'in-progress' && <IoCodeWorkingSharp className='icon in-progress'/>}
-                                                {project.status == 'completed' && <IoCheckmarkDoneCircleOutline className='icon completed'/>}
+                                              <ProjectStatus status={project.status}/>
                                             </div>
 
                                             <div className='project-settings'>
-                                                <Link/>
-                                                <CiSettings className='icon primary project-icon'/>
+                                                <Link className='link-manage' to={'/manage'}><CiSettings className='icon primary project-icon'/></Link>
                                             </div>
                                         </div>
                                     </div>
