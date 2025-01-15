@@ -1,13 +1,22 @@
 import Header from "../../components/Header"
 import ProjectStatus from "../../components/ProjectStatus"
 
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaTrashAlt, FaCheck } from "react-icons/fa";
 import { CiGlobe } from "react-icons/ci";
 
 import './manage.sass'
 import { useState } from "react";
 export default function Manage(){
     const [projectStatus, setProjectStatus] = useState()
+
+    const [inputDisabed, setInputDisabled] = useState(true)
+
+    const [taskList, setTaskList] = useState([
+        {task: 'Jogar o lixo fora',
+        done: false, 
+        priority: 1,
+        id: 0
+    }])
 
     return (
         <main>
@@ -49,7 +58,21 @@ export default function Manage(){
 
                     <div className="todo">
                         <div className="tasks">
-
+                            {taskList.map(t => {
+                                return (
+                                    <div className="task" key={t.id}>
+                                        <div className="delete-box">
+                                            <FaTrashAlt className="icon delete"/>
+                                        </div>
+                                        
+                                        <input type="text" placeholder={t.task} disabled={false} className="task-name" />
+                                        
+                                        <div className="done-box">
+                                            <FaCheck className="icon done"/>
+                                        </div>
+                                    </div>
+                                )
+                            })}
                         </div>
 
                         <div className="entry">
@@ -68,7 +91,6 @@ export default function Manage(){
                             <label>Atualize o status atual do projeto</label>
 
                             <div className="status-box">
-                                {/* Pensar em um design interessante */}
                                 <ProjectStatus simple={false} status={'in-progress'} checkStatus={setProjectStatus}/>
                             </div>
                         </div>
@@ -85,7 +107,7 @@ export default function Manage(){
                         </div>
                     </div>
 
-                    <div className="rigth-box">
+                    <div className="right-box">
                         <div className="box">
                             <label>Insira o link do live site</label>
                             <input type="text" placeholder="www.meusite.com" />

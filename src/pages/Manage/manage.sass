@@ -81,6 +81,52 @@
                     left: 2.5%
                     background-color: variables.$primary-color
 
+                .task 
+                    display: flex
+                    justify-content: space-between
+                    align-items: center
+                    margin: 15px 0
+
+                    .done-box 
+                        border: 1px solid variables.$primary-color
+                        margin-right: 15px
+
+                    .delete-box
+                        border: 1px solid variables.$icon-red
+                        margin-left: 15px
+
+                    .done-box, .delete-box
+                        width: 40px 
+                        height: 40px
+                        @extend %center-elements
+                        border-radius: 8px
+                        cursor: pointer
+
+                        .icon 
+                            width: 24px
+                            height: 24px
+
+                        .delete
+                            color: variables.$icon-red
+
+                        .done 
+                            color: variables.$primary-color
+
+                    &-name 
+                        border: 0
+                        background-color: variables.$bg-light-color
+                        text-align: center
+                        height: 40px
+                        border-radius: 8px
+                        padding: 0
+                        color: variables.$text-color
+                        cursor: pointer
+                        width: 280px
+
+                        &::placeholder
+                            color: variables.$primary-color
+                        
+                
             .entry 
                 position: relative
                 padding-top: 20px
@@ -152,8 +198,67 @@
         grid-template-columns: repeat(2, 50%)
         
         .left-box 
+            position: relative
+
             .box
                 text-align: center
 
+                .status-box 
+                    margin: 15px 0
+                    @extend %center-elements
+
+
+            .date-box 
+                @extend %center-elements
+                gap: 25px
+
+                .box 
+                    display: flex
+                    flex-direction: column
+
+                    label 
+                        margin-top: 15px
+
+                    input 
+                        @include utilities.input-style(100%, 120px)
+                        text-align: center
+                        margin: 10px 0
+                        padding: 0
+
+            &:after 
+                content: ''
+                position: absolute
+                width: 1px
+                height: 100%
+                background-color: variables.$secondary-color
+                right: -1px
+                top: 0
+                
+
         .right-box 
             .box
+                text-align: center
+                display: flex
+                flex-direction: column
+
+                &:last-of-type
+                    label 
+                        margin-top: 40px
+
+                label 
+                    margin-bottom: 10px
+
+                input
+                    margin: 0 auto
+                    @include utilities.input-style(100%  , 280px )
+                    text-align: center
+                    padding: 0
+
+    .save 
+        margin: 20px auto
+        grid-column: 1/3
+        background-color: transparent
+        color: variables.$secondary-color
+        border: 1px solid variables.$secondary-color
+        width: 180px
+        font-size: 2rem
