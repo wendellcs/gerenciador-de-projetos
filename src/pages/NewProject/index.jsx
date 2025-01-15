@@ -1,80 +1,43 @@
 import './newProject.sass'
 import Header from '../../components/Header'
 import { useState, useEffect } from 'react'
-import { IoCheckmarkDoneCircleOutline, IoCodeWorkingSharp } from "react-icons/io5";
 import { CiImageOn } from "react-icons/ci";
-import { MdCancel } from "react-icons/md";
-import { GiNightSleep } from "react-icons/gi";
 
 import {db} from "../../services/firebaseConnections"
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import LoginAlert from '../../components/LoginAlert';
 import { collection, addDoc } from 'firebase/firestore';
 import ProjectStatus from '../../components/ProjectStatus';
 
-export default function NewProject(){
-    const [checkNotStarted, setCheckNotStarted] = useState(true)
-    const [checkPaused, setCheckPaused] = useState(false)
-    const [checkInProgress, setCheckInProgress] = useState(false)
-    const [checkCompleted, setCheckCompleted] = useState(false)
-    const [checkMessage, setCheckMessage] = useState(['not-started', 'Projeto ainda não iniciado'])
-    
+export default function NewProject(){    
     const [projectName, setProjectName] = useState('')
-    const [projectStatus, setProjectStatus] = useState('')
+    const [projectStatus, setProjectStatus] = useState('not-started')
     const [projectDescription, setProjectDescription] = useState('')
+
     const [startDate, setStartDate] = useState('')
     const [completionDate, setCompletionDate] = useState('')
     const [projectImage, setProjectImage] = useState(null)
 
     const [user, setUser] = useState()
-
     const userData = useSelector(state => state.user.currentUser)
+
+    const [statusMessage, setStatusMessage] = useState([])
 
     useEffect(() => {
         setUser(userData)
     }, [userData])
 
-    function check(element){
-        switch(element){
-            case 'not-started':
-                setCheckNotStarted(true)
-                setCheckPaused(false)
-                setCheckInProgress(false)
-                setCheckCompleted(false)
-
-                setProjectStatus('not-started')
-                setCheckMessage(['not-started', 'Projeto ainda não iniciado'])
-                break
-            case 'paused':
-                setCheckNotStarted(false)
-                setCheckPaused(true)
-                setCheckInProgress(false)
-                setCheckCompleted(false)
-
-                setProjectStatus('paused')
-                setCheckMessage(['paused', 'Projeto pausado...'])
-                break
-            case 'in-progress':
-                setCheckNotStarted(false)
-                setCheckPaused(false)
-                setCheckInProgress(true)
-                setCheckCompleted(false)
-
-                setProjectStatus('in-progress')
-                setCheckMessage(['in-progress', 'Trabalhando no projeto'])
-                break
-            case 'completed':
-                setCheckNotStarted(false)
-                setCheckPaused(false)
-                setCheckInProgress(false)
-                setCheckCompleted(true)
-
-                setProjectStatus('completed')
-                setCheckMessage(['completed', 'Projeto finalizado!'])
-                break
-        }
+    const statusMessages = {
+        'not-started': 'Projeto ainda não iniciado.',
+        'paused': 'Projeto pausado...',
+        'in-progress': 'Trabalhando no projeto.',
+        'completed': 'Projeto concluído.'
     }
+
+    useEffect(()=> {
+        setStatusMessage([projectStatus, statusMessages[projectStatus]])
+    }, [projectStatus])
 
     async function addProject(e){
         e.preventDefault()
@@ -120,25 +83,9 @@ export default function NewProject(){
                     <div className="form-box">
                         <h3>Status do projeto</h3>
 
-                        <div className='project-status'>
-                            <div className={checkNotStarted ? 'status not-started checked' : 'status not-started'}  onClick={() => {check('not-started')}}>
-                                <ProjectStatus status={'not-started'}/>
-                            </div>
+                        <ProjectStatus simple={false} checkStatus={setProjectStatus}/>
 
-                            <div className={ checkPaused ? "status paused checked" : "status paused"} onClick={() => {check('paused')}}>
-                                <ProjectStatus status={'paused'}/>
-                            </div>
-                      
-                            <div className={ checkInProgress ? "status in-progress checked" : "status in-progress"} onClick={() => {check('in-progress')}}>
-                                <ProjectStatus status={'in-progress'}/>
-                            </div>
-
-                            <div className={ checkCompleted ? "status completed checked" : "status completed"} onClick={() => {check('completed')}}>
-                                <ProjectStatus status={'completed'}/>
-                            </div>
-                        </div>
-
-                        <p className={`text ${checkMessage[0]}`}>{checkMessage[1]}</p>
+                        <p className={`text ${statusMessage[0]}`}>{statusMessage[1]}</p>
                     </div>
 
                     <div className="form-box">
@@ -158,7 +105,7 @@ export default function NewProject(){
                             <div className="box">
                                 <label htmlFor = 'project-description'>Conclusão</label>
                                 <div className='date'>
-                                    <p className='completion-date'>{!checkCompleted ? 'Incompleto' : '10/1/25' }</p>
+                                    <p className='completion-date'>{projectStatus == 'completed' ? 'Incompleto' : '10/1/25' }</p>
                                 </div>
                             </div>
                         </div>

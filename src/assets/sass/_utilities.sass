@@ -24,6 +24,19 @@
     a 
         color: variables.$text-color
 
+%status-color 
+    &.not-started 
+        color: nth(variables.$light-color, 1)
+
+    &.paused
+        color: nth(variables.$light-color, 2)
+
+    &.in-progress
+        color: nth(variables.$light-color, 3)
+
+    &.completed
+        color: nth(variables.$light-color, 4)
+
 // Mixins
 @mixin input-style($width, $max-width)
     height: 40px

@@ -1,0 +1,159 @@
+@use '../../assets/sass/_variables'
+@use '../../assets/sass/_utilities'
+
+.container 
+    display: grid
+    grid-template-columns: repeat(2, 50%)
+    padding: 0 120px
+    margin-top: 80px
+
+    &-project 
+        text-align: center
+
+        &-title 
+            margin-bottom: 50px
+
+        .project 
+            padding: 25px 15px 0px 15px
+            width: 100%
+            max-width: 510px
+            border: 1px solid variables.$secondary-dark-color
+            background-color: variables.$bg-dark-color
+            border-radius: 32px
+            margin: 0 auto
+
+            h3 
+                font-size: 1.8rem
+                margin-bottom: 10px
+                letter-spacing: 1px
+
+            &-image 
+                width: 90%
+                max-width: 450px
+                height: 250px
+                border: 1px solid variables.$primary-color
+                border-radius: 18px
+                margin: 0 auto
+
+            &-infos 
+                display: flex
+                justify-content: space-between
+                align-items: top
+                margin: 20px 30px
+
+                .box 
+                    .status 
+                        font-size: 1.4rem
+                        letter-spacing: 1px
+                        @extend %status-color
+
+                    display: flex 
+                    flex-direction: column
+
+    &-todo 
+        text-align: center
+
+        &-title 
+            margin-bottom: 50px
+
+        .todo
+            border-radius: 32px
+            width: 100%
+            max-width: 490px
+            margin: 0 auto
+            border: 1px solid variables.$secondary-dark-color
+            background-color: variables.$bg-dark-color
+            min-height: 420px
+            display: flex
+            flex-direction: column
+            padding: 25px 15px
+
+            .tasks 
+                flex: 1
+                position: relative
+
+                &:before 
+                    background-color: variables
+                    content: ''
+                    position: absolute
+                    width: 95%
+                    height: 4px
+                    left: 2.5%
+                    background-color: variables.$primary-color
+
+            .entry 
+                position: relative
+                padding-top: 20px
+
+                &:before , &:after
+                    content: ''
+                    position: absolute
+                    width: 40%
+                    height: 2px
+                    background: #fff
+
+                &:before 
+                    left: 2.5%
+                    top: 0
+                    background-color: variables.$secondary-light-color
+
+                &:after
+                    top: 0
+                    right: 2.5%
+                    background-color: variables.$primary-color
+                    
+                .box 
+                    @extend %center-elements
+                    gap: 10px
+                    flex-wrap: wrap
+                    margin-bottom: 10px
+                
+                    input 
+                        @include utilities.input-style(80%, 250px)
+
+                    .add-task 
+                        width: 80px
+                        height: 40px
+                        background-color: transparent
+                        color: variables.$primary-color
+                        border: 1px solid variables.$primary-color
+                        font-size: 1.8rem
+                        letter-spacing: 2px
+                    
+                .text 
+                    font-size: 1.4rem
+                    margin-top: 20px
+                    letter-spacing: 1px
+                    position: relative
+                    padding-bottom: 20px
+
+                    &:after
+                        content: ''
+                        position: absolute
+                        width: 40%
+                        height: 4px
+                        background: #fff
+                        bottom: 0
+                        left: 2.5%
+                        width: 95%
+                        background-color: variables.$secondary-light-color 
+
+    &-edit 
+        width: 100%
+        max-width: 780px
+        min-height: 310px
+        margin: 40px auto
+        background-color: variables.$bg-dark-color
+        grid-column: 1 / 3
+        border: 1px solid variables.$secondary-dark-color
+        border-radius: 32px
+        padding: 20px
+        display: grid 
+        grid-template-columns: repeat(2, 50%)
+        
+        .left-box 
+            .box
+                text-align: center
+
+        .right-box 
+            .box

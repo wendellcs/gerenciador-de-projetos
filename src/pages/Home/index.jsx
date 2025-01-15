@@ -88,7 +88,7 @@ export default function Home(){
                                             <p className='project-tasks'>5</p>
 
                                             <div className='project-status'>
-                                              <ProjectStatus status={project.status}/>
+                                              <ProjectStatus simple={true} status={project.status}/>
                                             </div>
 
                                             <div className='project-settings'>

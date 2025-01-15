@@ -26,62 +26,12 @@
             input 
                 @include utilities.input-style(100%, 380px)
                 border-radius: 8px
-                
-            .project-status
-                display: flex
-                gap: 20px
-
-                .status 
-                    @extend %center-elements
-                    width: 100px
-                    height: 45px
-                    border-radius: 8px
-                    background-color: variables.$bg-dark-color
-                    cursor: pointer
-                    transition: 0.4s
-                    border: 1px solid #FFF
-
-                    .icon 
-                        color: #FFF
-
-                    &:hover 
-                        transform: scale(1.05)
-
-                    &.not-started.checked
-                        border-color: nth(variables.$light-color, 1)
-                        .icon 
-                            color: nth(variables.$light-color, 1)
-
-                    &.paused.checked
-                        border-color: nth(variables.$light-color, 2)
-                        .icon 
-                            color: nth(variables.$light-color, 2)
-
-                    &.in-progress.checked
-                        border-color: nth(variables.$light-color, 3)
-                        .icon 
-                            color: nth(variables.$light-color, 3)
-
-                    &.completed.checked
-                        border-color: nth(variables.$light-color, 4)
-                        .icon 
-                            color: nth(variables.$light-color, 4)
 
             .text
                 font-weight: bold
                 font-size: 1.8rem
+                @extend %status-color
 
-                &.not-started 
-                    color: nth(variables.$light-color, 1)
-
-                &.paused
-                    color: nth(variables.$light-color, 2)
-
-                &.in-progress
-                    color: nth(variables.$light-color, 3)
-
-                &.completed
-                    color: nth(variables.$light-color, 4)
             
             .description 
                 width: 350px
