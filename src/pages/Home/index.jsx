@@ -29,8 +29,10 @@ export default function Home(){
     useEffect(() => {
         setLoading(true)
         async function getProjects(){
-            const querySnapshot = collection(db, 'projects') 
-            await getDocs(querySnapshot).then((snapshot) => {
+            try {
+                const querySnapshot = collection(db, 'projects') 
+                const snapshot = await getDocs(querySnapshot)
+
                 const list = []
 
                 snapshot.forEach((doc) => {
@@ -39,9 +41,12 @@ export default function Home(){
                     }
                 })
 
-                setLoading(false)
                 setProjectList(list)
-            })
+            } catch(e) {
+                console.log(e)
+            } finally {
+                setLoading(false)
+            }
         }
 
         getProjects()
@@ -64,10 +69,9 @@ export default function Home(){
                     </div>
                 </section>
 
-                {loading && (
+                {loading ? (
                     <Loading/>
-                )}
-
+                ): (
                 <section className='projects-section'>
                     {user.email ? (
                         <div className='conected'>
@@ -88,7 +92,7 @@ export default function Home(){
                                             <p className='project-tasks'>5</p>
 
                                             <div className='project-status'>
-                                              <ProjectStatus simple={true} status={project.status}/>
+                                            <ProjectStatus simple={true} status={project.status}/>
                                             </div>
 
                                             <div className='project-settings'>
@@ -100,10 +104,10 @@ export default function Home(){
                                 )}
                         </div>
                     ):(
-                      <LoginAlert message={'para ver seus projetos.'}/>
+                    <LoginAlert message={'para ver seus projetos.'}/>
                     )}
-                    
                 </section>
+                )}
             </div>
         </main>
     )
