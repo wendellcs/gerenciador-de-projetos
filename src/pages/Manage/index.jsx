@@ -44,6 +44,7 @@ export default function Manage(){
             } finally {
                 setLoading(false)
             }
+
         }
         getProjectData()
     }, [id, setProjectData])
@@ -64,15 +65,27 @@ export default function Manage(){
         }
 
         const updatedTaskList = [...taskList, newTask]
-
         setTaskList(updatedTaskList)
-
-        const docRef = doc(db, 'projects', id)
-        await setDoc(docRef, {...projectData, taskList: updatedTaskList})
+        updateDataBase(updatedTaskList)
+        setTask('')
     }
 
 
+    async function updateDataBase(data){
+        const docRef = doc(db, 'projects', id)
+        await setDoc(docRef, {...projectData, taskList: data})
+    }
 
+
+    function deleteTask(taskId){
+        const updatedTaskList = taskList.filter(task => task.id !== taskId)
+
+        updateDataBase(updatedTaskList)
+        setTaskList(updatedTaskList)
+    }
+
+    function toggleTaskDoneState(taskId){
+    }
 
     return (
         <main>
@@ -121,13 +134,13 @@ export default function Manage(){
                                 {taskList.map(t => {
                                     return (
                                         <div className="task" key={t.id}>
-                                            <div className="delete-box">
+                                            <div className="delete-box" onClick={() => {deleteTask(t.id)}}>
                                                 <FaTrashAlt className="icon delete"/>
                                             </div>
                                             
                                             <input type="text" placeholder={t.task} disabled={false} className="task-name" />
                                             
-                                            <div className="done-box">
+                                            <div className="done-box" onClick={() => {toggleTaskDoneState(t.id)}}>
                                                 <FaCheck className="icon done"/>
                                             </div>
                                         </div>
