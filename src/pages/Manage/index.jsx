@@ -4,19 +4,26 @@ import ProjectStatus from "../../components/ProjectStatus"
 import { FaGithub, FaTrashAlt, FaCheck } from "react-icons/fa";
 import { CiGlobe } from "react-icons/ci";
 
-import { getDocs, collection, addDoc } from "firebase/firestore";
+import { getDocs, collection, setDoc, doc } from "firebase/firestore";
 import { db } from '../../services/firebaseConnections'
 
 import './manage.sass'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading/script";
+
 export default function Manage(){
-    const { id } = useParams()
     const [projectData, setProjectData] = useState(null)
     const [loading, setLoading] = useState(false)
+    
+    const [projectStatus, setProjectStatus] = useState()
+    const [task, setTask] = useState('')
 
-    useEffect(()=> {
+    const [taskList, setTaskList] = useState([])
+
+    const { id } = useParams()
+
+    useEffect(() => {
         setLoading(true)
 
         async function getProjectData(){
@@ -41,15 +48,13 @@ export default function Manage(){
         getProjectData()
     }, [id, setProjectData])
 
-    const [projectStatus, setProjectStatus] = useState()
 
-    const [task, setTask] = useState('')
+    useEffect(() => {
+        if  (projectData && projectData.taskList){
+            setTaskList(projectData.taskList)
+        }
+    }, [projectData])
 
-    const [taskList, setTaskList] = useState([
-        {task: 'Jogar o lixo fora',
-        done: false, 
-        id: 0
-    }])
 
     async function addTask(){
         const newTask = {
@@ -58,13 +63,16 @@ export default function Manage(){
             id: taskList.length
         }
 
-        setTaskList([...taskList, newTask])
+        const updatedTaskList = [...taskList, newTask]
 
-        await addDoc(collection(db, 'projects'), {...projectData, taskList})
-        .then(() => {
-            setTask('')
-        }).catch(e => console.log(e.message) )
+        setTaskList(updatedTaskList)
+
+        const docRef = doc(db, 'projects', id)
+        await setDoc(docRef, {...projectData, taskList: updatedTaskList})
     }
+
+
+
 
     return (
         <main>
