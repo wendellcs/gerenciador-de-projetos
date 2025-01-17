@@ -4,19 +4,35 @@ import ProjectStatus from "../../components/ProjectStatus"
 import { FaGithub, FaTrashAlt, FaCheck } from "react-icons/fa";
 import { CiGlobe } from "react-icons/ci";
 
+import { setDoc } from "firebase/firestore";
+import { db } from '../../services/firebaseConnections'
+
 import './manage.sass'
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 export default function Manage(){
+    const { id } = useParams()
+
     const [projectStatus, setProjectStatus] = useState()
 
-    const [inputDisabed, setInputDisabled] = useState(true)
+    const [task, setTask] = useState('')
 
     const [taskList, setTaskList] = useState([
         {task: 'Jogar o lixo fora',
         done: false, 
-        priority: 1,
         id: 0
     }])
+
+    async function addTask(){
+        const newTask = {
+            task,
+            done: false,
+            id: taskList.length
+        }
+
+        setTaskList([...taskList, newTask])
+        setTask('')  
+    }
 
     return (
         <main>
@@ -77,8 +93,8 @@ export default function Manage(){
 
                         <div className="entry">
                             <div className="box">
-                                <input type="text" placeholder="Tarefa"/>
-                                <button className="btn add-task">Add</button>
+                                <input type="text" placeholder="Tarefa" value={task} onChange={(e) => setTask(e.target.value)}/>
+                                <button className="btn add-task" onClick={() => addTask()}>Add</button>
                             </div>
                             <p className="text">As tasks são únicas de cada projeto</p>
                         </div>

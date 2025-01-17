@@ -92,7 +92,7 @@ export default function Home(){
                                             </div>
 
                                             <div className='project-settings'>
-                                                <Link className='link-manage' to={'/manage'}><CiSettings className='icon primary project-icon'/></Link>
+                                                <Link className='link-manage' to={`/manage/${project.id}`}><CiSettings className='icon primary project-icon'/></Link>
                                             </div>
                                         </div>
                                     </div>

@@ -13,7 +13,7 @@ export default function RoutesApp(){
 
             {/* Private */}
             <Route path='/' element={<Home/>}/>
-            <Route path='/manage' element={<Manage/>}/>
+            <Route path='/manage/:id' element={<Manage/>}/>
             <Route path='/newproject' element={<NewProject/>}/>
      
         </Routes>
