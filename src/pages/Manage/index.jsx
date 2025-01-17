@@ -4,7 +4,7 @@ import ProjectStatus from "../../components/ProjectStatus"
 import { FaGithub, FaTrashAlt, FaCheck } from "react-icons/fa";
 import { CiGlobe } from "react-icons/ci";
 
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, addDoc } from "firebase/firestore";
 import { db } from '../../services/firebaseConnections'
 
 import './manage.sass'
@@ -31,8 +31,6 @@ export default function Manage(){
                         project = {...doc.data()}
                     }
                 })
-                console.log(project)
-    
                 setProjectData(project)
             } catch (e) {
                 console.log(e)
@@ -53,7 +51,7 @@ export default function Manage(){
         id: 0
     }])
 
-    function addTask(){
+    async function addTask(){
         const newTask = {
             task,
             done: false,
@@ -61,7 +59,11 @@ export default function Manage(){
         }
 
         setTaskList([...taskList, newTask])
-        setTask('')  
+
+        await addDoc(collection(db, 'projects'), {...projectData, taskList})
+        .then(() => {
+            setTask('')
+        }).catch(e => console.log(e.message) )
     }
 
     return (
