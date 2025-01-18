@@ -85,6 +85,14 @@ export default function Manage(){
     }
 
     function toggleTaskDoneState(taskId){
+        for(let task of taskList){
+            if(task.id == taskId){
+                task.done = !task.done
+                updateDataBase(taskList)
+                setTaskList(taskList)
+                break
+            }
+        }
     }
 
     return (
@@ -133,7 +141,8 @@ export default function Manage(){
                             <div className="tasks">
                                 {taskList.map(t => {
                                     return (
-                                        <div className="task" key={t.id}>
+                                        // Os dados só estão sendo carregados após atualizar a página
+                                        <div className={t.done ? 'task done' : 'task'} key={t.id}>
                                             <div className="delete-box" onClick={() => {deleteTask(t.id)}}>
                                                 <FaTrashAlt className="icon delete"/>
                                             </div>
@@ -141,7 +150,11 @@ export default function Manage(){
                                             <input type="text" placeholder={t.task} disabled={false} className="task-name" />
                                             
                                             <div className="done-box" onClick={() => {toggleTaskDoneState(t.id)}}>
-                                                <FaCheck className="icon done"/>
+                                                {t.done ? (
+                                                    <p>oi</p>
+                                                ): (
+                                                    <FaCheck className="icon done"/>
+                                                )}
                                             </div>
                                         </div>
                                     )
