@@ -42,13 +42,13 @@
                 margin: 20px 30px
 
                 .box 
+                    display: flex 
+                    flex-direction: column
+
                     .status 
                         font-size: 1.4rem
                         letter-spacing: 1px
                         @extend %status-color
-
-                    display: flex 
-                    flex-direction: column
 
     &-todo 
         text-align: center
@@ -63,69 +63,62 @@
             margin: 0 auto
             border: 1px solid variables.$secondary-dark-color
             background-color: variables.$bg-dark-color
-            min-height: 420px
+            height: 420px
             display: flex
             flex-direction: column
             padding: 25px 15px
 
-            .tasks 
+            .tasks-container
                 flex: 1
-                position: relative
+                overflow: hidden
+            
+                .done-tasks 
+                
+                    &:before
+                        display: none
 
-                &:before 
-                    background-color: variables
-                    content: ''
-                    position: absolute
-                    width: 95%
-                    height: 4px
-                    left: 2.5%
-                    background-color: variables.$primary-color
+                    .task
+                        &:first-of-type
+                            position: relative
 
-                .task 
-                    display: flex
-                    justify-content: space-between
-                    align-items: center
-                    margin: 15px 0
+                            &:before 
+                                @include utilities.todo-list-before-style(1px, variables.$secondary-color)
 
-                    .done-box 
-                        border: 1px solid variables.$primary-color
-                        margin-right: 15px
+                        &-name 
+                            &::placeholder  
+                                color: variables.$secondary-color 
 
-                    .delete-box
-                        border: 1px solid variables.$icon-red
-                        margin-left: 15px
+                .tasks-todo, .tasks-done
+                    @extend %todo-task-style
+                    height: 115px
+                    overflow: auto
 
-                    .done-box, .delete-box
-                        width: 40px 
-                        height: 40px
-                        @extend %center-elements
-                        border-radius: 8px
-                        cursor: pointer
+                    &::-webkit-scrollbar 
+                        display: none
+                                            
+                    
+                .tasks-todo 
+                    position: relative
 
-                        .icon 
-                            width: 24px
-                            height: 24px
+                    &:before
+                        @include utilities.todo-list-before-style(4px)
 
-                        .delete
-                            color: variables.$icon-red
-
-                        .done 
-                            color: variables.$primary-color
-
-                    &-name 
-                        border: 0
-                        background-color: variables.$bg-light-color
-                        text-align: center
-                        height: 40px
-                        border-radius: 8px
-                        padding: 0
-                        color: variables.$text-color
-                        cursor: pointer
-                        width: 280px
-
+                    .task
+                        &:last-of-type
+                            margin-bottom: 30px
+                    .task-name 
                         &::placeholder
                             color: variables.$primary-color
+
+                .tasks-done
+                    position: relative
+
+                    &:before 
+                        @include utilities.todo-list-before-style($color: variables.$secondary-color)
                         
+                    .task-name 
+                        &::placeholder
+                            color: variables.$secondary-color
                 
             .entry 
                 position: relative

@@ -20,6 +20,7 @@ export default function Manage(){
     const [task, setTask] = useState('')
 
     const [taskList, setTaskList] = useState([])
+    const [doneTaskList, setDoneTaskList] = useState([])
 
     const { id } = useParams()
 
@@ -53,6 +54,7 @@ export default function Manage(){
     useEffect(() => {
         if  (projectData && projectData.taskList){
             setTaskList(projectData.taskList)
+            setDoneTaskList(projectData.taskList.filter(task => task.done))
         }
     }, [projectData])
 
@@ -70,7 +72,6 @@ export default function Manage(){
         setTask('')
     }
 
-
     async function updateDataBase(data){
         const docRef = doc(db, 'projects', id)
         await setDoc(docRef, {...projectData, taskList: data})
@@ -79,20 +80,27 @@ export default function Manage(){
 
     function deleteTask(taskId){
         const updatedTaskList = taskList.filter(task => task.id !== taskId)
+        const updatedDoneTaskList = updatedTaskList.filter(task => task.done)
 
+        setDoneTaskList(updatedDoneTaskList)
         updateDataBase(updatedTaskList)
         setTaskList(updatedTaskList)
     }
 
     function toggleTaskDoneState(taskId){
+        const updatedTaskList = []
         for(let task of taskList){
             if(task.id == taskId){
                 task.done = !task.done
                 updateDataBase(taskList)
-                setTaskList(taskList)
+                updatedTaskList.push(...taskList)
                 break
             }
         }
+        const updatedDoneTaskList = taskList.filter(task => task.done)
+        setDoneTaskList(updatedDoneTaskList)
+
+        setTaskList(updatedTaskList)
     }
 
     return (
@@ -138,27 +146,40 @@ export default function Manage(){
                         <h2 className="container-todo-title">Tarefas</h2>
 
                         <div className="todo">
-                            <div className="tasks">
-                                {taskList.map(t => {
-                                    return (
-                                        // Os dados só estão sendo carregados após atualizar a página
-                                        <div className={t.done ? 'task done' : 'task'} key={t.id}>
-                                            <div className="delete-box" onClick={() => {deleteTask(t.id)}}>
-                                                <FaTrashAlt className="icon delete"/>
-                                            </div>
-                                            
-                                            <input type="text" placeholder={t.task} disabled={false} className="task-name" />
-                                            
-                                            <div className="done-box" onClick={() => {toggleTaskDoneState(t.id)}}>
-                                                {t.done ? (
-                                                    <p>oi</p>
-                                                ): (
+                            <div className="tasks-container">
+                                <div className="tasks-todo">
+                                    {taskList.map(t => {
+                                        if(!t.done) {
+                                            return (
+                                                <div className='task' key={t.id}>
+                                                    <div className="delete-box" onClick={() => {deleteTask(t.id)}}>
+                                                        <FaTrashAlt className="icon delete"/>
+                                                    </div>
+                                                    
+                                                    <input type="text" placeholder={t.task} disabled={false} className="task-name" />
+                                                    <div className="done-box" onClick={() => {toggleTaskDoneState(t.id)}}></div>
+                                                </div>
+                                            )
+                                        }
+                                    })}
+                                </div>
+
+                                <div className="tasks-done">
+                                    {doneTaskList.map((t) => {
+                                        return (
+                                            <div className='task' key={t.id}>
+                                                <div className="delete-box" onClick={() => {deleteTask(t.id)}}>
+                                                    <FaTrashAlt className="icon delete"/>
+                                                </div>
+                                                
+                                                <input type="text" placeholder={t.task} disabled={false} className="task-name" />
+                                                <div className="done-box" onClick={() => {toggleTaskDoneState(t.id)}}>
                                                     <FaCheck className="icon done"/>
-                                                )}
+                                                </div>
                                             </div>
-                                        </div>
-                                    )
-                                })}
+                                        )   
+                                    })}
+                                </div>
                             </div>
 
                             <div className="entry">

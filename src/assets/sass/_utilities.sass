@@ -1,6 +1,101 @@
 @use './_variables'
 
+// Mixins
+
+@mixin todo-list-before-style($height: 1px, $color: variables.$primary-color)
+    content: ''
+    position: absolute
+    width: 95%
+    height: $height
+    left: 2.5%
+    background-color: $color
+
+@mixin form-title($width, $height)
+    font-size: 2.8rem
+    margin-top: 70px
+    margin-bottom: 40px
+    position: relative
+
+    &:before , &:after 
+        content: ''
+        width: $width
+        height: $height
+        position: absolute
+       
+    &:before 
+        background-color: variables.$secondary-light-color
+        right: 0
+        top: -8px
+
+    &:after 
+        background-color: variables.$primary-color
+        left: 0
+        bottom: -8px
+
+@mixin form-style($height , $width: 480px)
+    display: flex
+    flex-direction: column
+    align-items: center
+    border-radius: 50px
+    border: 1px solid variables.$primary-color 
+    width: 80%
+    max-width: $width
+    margin: 135px auto
+    background-color: variables.$bg-medium-color
+    height: $height
+
+@mixin input-style($width, $max-width)
+    height: 40px
+    border: 1px solid variables.$primary-color
+    border-radius: 12px
+    background-color: variables.$bg-dark-color
+    color: variables.$text-color
+    width: $width
+    max-width: $max-width
+
 // Placeholder Selectors
+    
+%todo-task-style
+    .task 
+        display: flex
+        justify-content: space-between
+        margin: 15px 0
+
+        .done-box 
+            border: 1px solid variables.$primary-color
+            margin-right: 15px
+
+        .delete-box
+            border: 1px solid variables.$icon-red
+            margin-left: 15px
+
+        .done-box, .delete-box
+            width: 40px 
+            height: 40px
+            @extend %center-elements
+            border-radius: 8px
+            cursor: pointer
+
+            .icon 
+                width: 24px
+                height: 24px
+
+            .delete
+                color: variables.$icon-red
+
+            .done 
+                color: variables.$primary-color
+
+        &-name 
+            @include input-style(100%, 280px)
+            border: 0
+            background-color: variables.$bg-light-color
+            text-align: center
+            padding: 0
+
+            &::placeholder
+                color: variables.$primary-color
+
 %center-elements
     display: flex
     justify-content: center
@@ -36,47 +131,3 @@
 
     &.completed
         color: nth(variables.$light-color, 4)
-
-// Mixins
-@mixin input-style($width, $max-width)
-    height: 40px
-    border: 1px solid variables.$primary-color
-    border-radius: 12px
-    background-color: variables.$bg-dark-color
-    color: variables.$text-color
-    width: $width
-    max-width: $max-width
-
-@mixin form-title($width, $height)
-    font-size: 2.8rem
-    margin-top: 70px
-    margin-bottom: 40px
-    position: relative
-
-    &:before , &:after 
-        content: ''
-        width: $width
-        height: $height
-        position: absolute
-       
-    &:before 
-        background-color: variables.$secondary-light-color
-        right: 0
-        top: -8px
-
-    &:after 
-        background-color: variables.$primary-color
-        left: 0
-        bottom: -8px
-
-@mixin form-style($height , $width: 480px)
-    display: flex
-    flex-direction: column
-    align-items: center
-    border-radius: 50px
-    border: 1px solid variables.$primary-color 
-    width: 80%
-    max-width: $width
-    margin: 135px auto
-    background-color: variables.$bg-medium-color
-    height: $height
