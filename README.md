@@ -1,4 +1,14 @@
-# React + Vite
+# Gerenciador de projetos
+
+## Qual a ideia do projeto?
+
+A principal ideia é ter um ambiente online onde podemos guardar ideias de novos projetos e gerenciar os projetos já existentes.
+
+## O que podemos fazer até o momento?
+
+- Você poderá definir seus projetos em 4 estágios diferentes: não iniciado, parado, em progresso e finalizado.
+- Cada projeto registrado tem sua própria lista de tarefas para facilitar na organização e desenvolvimento.
+
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
