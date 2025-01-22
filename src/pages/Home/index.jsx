@@ -42,6 +42,7 @@ export default function Home(){
                 })
 
                 setProjectList(list)
+
             } catch(e) {
                 console.log(e)
             } finally {
@@ -89,7 +90,7 @@ export default function Home(){
                                         </div>
 
                                         <div className='project-container-infos'>
-                                            <p className='project-tasks'>5</p>
+                                            <p className='project-tasks'>{project.taskList?.length || '0'}</p>
 
                                             <div className='project-status'>
                                             <ProjectStatus simple={true} status={project.status}/>

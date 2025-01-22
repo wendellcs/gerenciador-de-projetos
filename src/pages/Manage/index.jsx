@@ -16,11 +16,15 @@ export default function Manage(){
     const [projectData, setProjectData] = useState(null)
     const [loading, setLoading] = useState(false)
     
-    const [projectStatus, setProjectStatus] = useState()
     const [task, setTask] = useState('')
-
     const [taskList, setTaskList] = useState([])
     const [doneTaskList, setDoneTaskList] = useState([])
+    
+    const [projectStatus, setProjectStatus] = useState('')
+    const [startDate, setStartDate] = useState('')
+    const [endDate, setEndDate] = useState('')
+    const [liveSiteLink, setLiveSiteLink] = useState('')
+    const [repoLink, setRepoLink] = useState('')
 
     const { id } = useParams()
 
@@ -103,6 +107,12 @@ export default function Manage(){
         setTaskList(updatedTaskList)
     }
 
+    function editProject(e){
+        e.preventDefault()
+
+        console.log(projectStatus)
+    }
+
     return (
         <main>
             <Header/>
@@ -122,7 +132,7 @@ export default function Manage(){
                             <div className="project-infos">
                                 <div className="box">
                                     <h3 className="box-title">Tasks</h3>
-                                    <p className="tasks">5</p>
+                                    <p className="tasks">{taskList.filter(t => t.done == false).length}</p>
                                 </div>
 
                                 <div className="box">
@@ -192,13 +202,13 @@ export default function Manage(){
                         </div>
                     </div>
 
-                    <div className="container-edit">
+                    <form className="container-edit">
                         <div className="left-box">
                             <div className="box">
                                 <label>Atualize o status atual do projeto</label>
 
                                 <div className="status-box">
-                                    <ProjectStatus simple={false} status={'in-progress'} checkStatus={setProjectStatus}/>
+                                    <ProjectStatus simple={false} checkStatus={setProjectStatus}/>
                                 </div>
                             </div>
 
@@ -225,8 +235,8 @@ export default function Manage(){
                             </div>
                         </div>
 
-                        <button className="btn save">Salvar</button>
-                    </div>
+                        <button className="btn save" onClick={editProject}>Salvar</button>
+                    </form>
                 </div>
             )}
         </main>
