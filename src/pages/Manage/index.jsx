@@ -111,6 +111,9 @@ export default function Manage(){
         e.preventDefault()
 
         console.log(projectStatus)
+
+        console.log(liveSiteLink)
+        console.log(repoLink)
     }
 
     return (
@@ -227,11 +230,11 @@ export default function Manage(){
                         <div className="right-box">
                             <div className="box">
                                 <label>Insira o link do live site</label>
-                                <input type="text" placeholder="www.meusite.com" />
+                                <input type="text" placeholder={projectData.liveSite || "www.meusite.com"} value={liveSiteLink} onChange={e => setLiveSiteLink(e.target.value)}/>
                             </div>
                             <div className="box">
                                 <label>Insira o link do repositório</label>
-                                <input type="text" placeholder="www.github.com/seuGitHub/repo" />
+                                <input type="text" placeholder={projectData.repo || "www.github.com/seuGitHub/repo"} value={repoLink} onChange={e => setRepoLink(e.target.value)}/>
                             </div>
                         </div>
 

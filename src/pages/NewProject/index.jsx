@@ -2,6 +2,7 @@ import './newProject.sass'
 import Header from '../../components/Header'
 import { useState, useEffect } from 'react'
 import { CiImageOn } from "react-icons/ci";
+import { FaCheck } from "react-icons/fa";
 
 import {db} from "../../services/firebaseConnections"
 import { useSelector } from 'react-redux';
@@ -16,8 +17,8 @@ export default function NewProject(){
     const [projectDescription, setProjectDescription] = useState('')
 
     const [startDate, setStartDate] = useState('')
-    const [completionDate, setCompletionDate] = useState('')
     const [projectImage, setProjectImage] = useState(null)
+    const [checkboxChecked, setCheckboxChecked] = useState(true)
 
     const [user, setUser] = useState()
     const userData = useSelector(state => state.user.currentUser)
@@ -42,28 +43,55 @@ export default function NewProject(){
     async function addProject(e){
         e.preventDefault()
 
-        const dates = [startDate, completionDate]
+        if(verifyDate()) {
+            await addDoc(collection(db, 'projects'), {
+                name: projectName,
+                dates: [startDate],
+                description: projectDescription,
+                image: projectImage,
+                status: projectStatus,
+                userUid: user.uid
+            }).then(() => {
+                alert('Projeto adicionado')
 
-        await addDoc(collection(db, 'projects'), {
-            name: projectName,
-            dates,
-            description: projectDescription,
-            image: projectImage,
-            status: projectStatus,
-            userUid: user.uid
-        }).then(() => {
-            alert('Projeto adicionado')
-
-            setProjectStatus('')
-            setProjectName('')
-            setProjectDescription('')
-            setStartDate('')
-            setCompletionDate('')
-            setProjectImage(null)   
-        }).catch(e => {
-            console.log(e.message)
-        })
+                setProjectStatus('')
+                setProjectName('')
+                setProjectDescription('')
+                setStartDate(generateDate())
+                setProjectImage(null)   
+                setCheckboxChecked(true)
+                
+            }).catch(e => {
+                console.log(e.message)
+            })
+        }
     }
+
+    function verifyDate(){
+        if(!startDate){
+            return false
+        } else {
+            const todayDate = generateDate().split('/').reverse().join('-')
+            const inputDate = startDate.split('/').reverse().join('-')
+
+            const verifyInputDate = inputDate.split('-').map(Number)
+            if (verifyInputDate.some(v => v <= 0)) {
+                return false
+            }
+
+            return todayDate >= inputDate
+        }
+    }
+
+    function generateDate(){
+        const date = new Date()
+        return `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`
+    }
+
+    useEffect(()=> {
+        setStartDate(generateDate())
+    }, [])
+
 
     return (
         <main>
@@ -94,19 +122,17 @@ export default function NewProject(){
                     </div>
 
                     <div className="form-box">
-                        <div className="date-container">
-                            <div className="box">
-                                <label htmlFor = 'project-description'>Data de inicio</label>
-                                <div className='date'>
-                                    <p className='start-date'>08/1/25</p>
-                                </div>
+                        <div className="box-date">
+                            <label htmlFor = 'project-description'>Data de inicio</label>
+                            <div className='date'>
+                                <input type="text" className='date-input' disabled={checkboxChecked} value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
                             </div>
+                        </div>
 
-                            <div className="box">
-                                <label htmlFor = 'project-description'>Conclusão</label>
-                                <div className='date'>
-                                    <p className='completion-date'>{projectStatus == 'completed' ? 'Incompleto' : '10/1/25' }</p>
-                                </div>
+                        <div className="box-checkbox">
+                            <label htmlFor="">Nunca trabalhei nesse projeto antes</label>
+                            <div className='checkbox' onClick={() => setCheckboxChecked(!checkboxChecked)}>
+                                {checkboxChecked && <FaCheck className='icon primary'/>}
                             </div>
                         </div>
                     </div>
