@@ -5,12 +5,14 @@ import { FaGithub, FaTrashAlt, FaCheck } from "react-icons/fa";
 import { CiGlobe } from "react-icons/ci";
 
 import { getDocs, collection, setDoc, doc } from "firebase/firestore";
-import { db } from '../../services/firebaseConnections'
+import { db } from '../../services/firebase/firebaseConnections'
 
 import './manage.sass'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading/script";
+
+import { verifyDate } from "../../services/verifyDate";
 
 export default function Manage(){
     const [projectData, setProjectData] = useState(null)
@@ -109,6 +111,8 @@ export default function Manage(){
 
     function editProject(e){
         e.preventDefault()
+
+        // verifyDate(startDate)
 
         console.log(projectStatus)
 
@@ -218,12 +222,14 @@ export default function Manage(){
                             <div className="date-box">
                                 <div className="box">
                                     <label>Inicio</label>
-                                    <input type="text" placeholder="dd/mm/yy"/>
+                                    <input type="text" placeholder={projectData.dates[0]}/>
                                 </div>
-                                <div className="box">
-                                    <label>Fim</label>
-                                    <input type="text" placeholder="dd/mm/yy"/>
-                                </div>
+                                {projectData.dates.length > 1 && (
+                                    <div className="box">
+                                        <label>Conclusão</label>
+                                        <input type="text" value={endDate}/>
+                                    </div>
+                                )}
                             </div>
                         </div>
 

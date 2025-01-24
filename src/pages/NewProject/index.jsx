@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react'
 import { CiImageOn } from "react-icons/ci";
 import { FaCheck } from "react-icons/fa";
 
-import {db} from "../../services/firebaseConnections"
+import {db} from "../../services/firebase/firebaseConnections"
 import { useSelector } from 'react-redux';
 
 import LoginAlert from '../../components/LoginAlert';
 import { collection, addDoc } from 'firebase/firestore';
-import ProjectStatus from '../../components/ProjectStatus';
+import ProjectStatus from '../../components/ProjectStatus'
+import { verifyDate } from '../../services/verifyDate';
 
 export default function NewProject(){    
     const [projectName, setProjectName] = useState('')
@@ -43,7 +44,7 @@ export default function NewProject(){
     async function addProject(e){
         e.preventDefault()
 
-        if(verifyDate()) {
+        if(verifyDate(startDate)) {
             await addDoc(collection(db, 'projects'), {
                 name: projectName,
                 dates: [startDate],
@@ -64,22 +65,6 @@ export default function NewProject(){
             }).catch(e => {
                 console.log(e.message)
             })
-        }
-    }
-
-    function verifyDate(){
-        if(!startDate){
-            return false
-        } else {
-            const todayDate = generateDate().split('/').reverse().join('-')
-            const inputDate = startDate.split('/').reverse().join('-')
-
-            const verifyInputDate = inputDate.split('-').map(Number)
-            if (verifyInputDate.some(v => v <= 0)) {
-                return false
-            }
-
-            return todayDate >= inputDate
         }
     }
 

@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom'
-import SignIn from '../pages/SignIn'
-import SignUp from '../pages/SignUp'
-import Home from '../pages/Home'
-import Manage from '../pages/Manage'
-import NewProject from '../pages/NewProject'
+import SignIn from '../../pages/SignIn'
+import SignUp from '../../pages/SignUp'
+import Home from '../../pages/Home'
+import Manage from '../../pages/Manage'
+import NewProject from '../../pages/NewProject'
 
 export default function RoutesApp(){
     return (
