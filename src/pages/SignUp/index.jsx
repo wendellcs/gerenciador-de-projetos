@@ -5,7 +5,6 @@ import {auth , db} from '../../services/firebase/firebaseConnections'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 import Header from '../../components/Header/index.jsx'
-import './signUp.sass'
 import { setDoc , doc} from 'firebase/firestore'
 import { setCurrentUser } from '../../redux/user/slice'
 
@@ -61,34 +60,34 @@ export default function SignUp(){
         <div className='container-signup'>
             <Header headerStyle = 'login'/>
             <form className='signup-form'>
-                <h2 className='signup-form-title'>Faça seu cadastro</h2>
+                <h2 className='signup-form-title subtitle'>Faça seu cadastro</h2>
 
                 <div className='signup-form-box'>
-                    <label>Seu nome:</label>
-                    <input type='text' value={name} onChange={(e) => {setName(e.target.value)}} placeholder='Seu nome'/>
+                    <label className='label secondary'>Seu nome:</label>
+                    <input type='text' className='signup-input' value={name} onChange={(e) => {setName(e.target.value)}} placeholder='Seu nome'/>
                 </div>
 
                 <div className='signup-form-box'>
-                    <label>Seu e-mail:</label>
-                    <input type='email' value={email} onChange={(e) => {setEmail(e.target.value)}} placeholder='exemplo@exemplo.com'/>
+                    <label className='label secondary'>Seu e-mail:</label>
+                    <input type='email' className='signup-input' value={email} onChange={(e) => {setEmail(e.target.value)}} placeholder='exemplo@exemplo.com'/>
                 </div>
 
                 <div className='password-area'>
                     <div className='password-box'>
-                        <label>Sua senha:</label>
-                        <input type='password' value={password} onChange={(e) => {setPassword(e.target.value)}} placeholder='********'/>
+                        <label className='label secondary'>Sua senha:</label>
+                        <input type='password' className='signup-input' value={password} onChange={(e) => {setPassword(e.target.value)}} placeholder='********'/>
                     </div>
                     <div className='password-box'>
-                        <label>Confirme sua senha:</label>
-                        <input type='password' value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}} placeholder='********'/>
+                        <label className='label secondary'>Confirme sua senha:</label>
+                        <input type='password' className='signup-input' value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}} placeholder='********'/>
                     </div>
                 </div>
 
                 <button className='btn form' onClick={(e) => {handleSubmit(e)}} type='submit'>Criar conta</button>
 
                 <div className='signup-form-text'>
-                    <p>Já possui uma conta?</p>
-                    <Link to={'/login'}>Crie uma aqui para fazer login</Link>
+                    <p className='text normal'>Já possui uma conta?</p>
+                    <Link className='link' to={'/login'}>Crie uma aqui para fazer login</Link>
                 </div>
             </form>
         </div>

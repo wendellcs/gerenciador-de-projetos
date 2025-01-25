@@ -1,0 +1,89 @@
+@use './_variables'
+@import 'https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap'
+@import 'https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap'
+
+$small-font-size: 1.4rem
+$normal-font-size: 1.6rem
+$big-font-size: 1.8rem
+
+$big-title-size: 3.2rem 
+$normal-title-size: 2.6rem
+$small-title-size: 2.2rem
+$smaller-title-size: 2rem
+
+$main-font-family: 'Inter', sans-serif
+$secondary-font-family: 'Klee One', sans-serif
+
+// Span Style
+
+.highlight 
+    font-style: italic
+    font-size: $normal-font-size
+
+    &.primary
+        color: variables.$primary-color
+
+    &.danger 
+        color: variables.$danger-color
+
+
+// Title Style
+.main-title 
+    font-size: $big-title-size
+    color: variables.$primary-color
+
+.subtitle , .small-title, .smaller-title
+    color: variables.$text-color
+
+.subtitle 
+    font-size: $normal-title-size
+
+.small-title
+    font-size: $small-title-size
+
+.smaller-title
+    font-size: $smaller-title-size
+// Text Style
+
+.text , .text-secondary 
+    font-size: $big-font-size
+    letter-spacing: 1px
+
+    &.normal 
+        font-size: $normal-font-size
+
+    &.small 
+        font-size: $small-font-size
+
+.text 
+    color: variables.$text-color
+
+.text-secondary
+    color: variables.$primary-color
+
+// Label Style
+
+.label
+    color: variables.$text-color
+    font-family: $secondary-font-family
+
+    &.primary
+        font-size: $small-font-size
+
+    &.secondary
+        font-size: $big-font-size
+
+
+// Link Style
+
+.link 
+    transition: .3s 
+    color: variables.$primary-color
+    font-size: $normal-font-size
+
+    &.menu-link 
+        color: variables.$secondary-color
+
+
+
+// Criar o placeholder selector para os textos dos buttons

@@ -8,7 +8,6 @@ import { getDocs, collection, setDoc, doc, deleteDoc } from "firebase/firestore"
 import { db } from '../../services/firebase/firebaseConnections'
 import { Navigate, useNavigate } from "react-router-dom";
 
-import './manage.sass'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading";

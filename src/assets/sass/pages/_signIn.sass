@@ -1,0 +1,24 @@
+@use '../base/_utilities'
+@use '../base/_variables'
+@use '../components/_button'
+    
+.container-login
+    .login-form
+        @include utilities.form-style(600px)
+
+        &-title 
+            @extend %form-title-decoration
+
+        &-box 
+            @extend %form-box
+
+            &:not(:first-of-type)
+                margin-top: 30px
+
+            .login-input
+                @include utilities.input-style(100%,380px) 
+                @include utilities.input-text()
+
+        &-text 
+            text-align: center
+            margin-top: 30px

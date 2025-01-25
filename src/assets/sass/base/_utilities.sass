@@ -1,4 +1,5 @@
 @use './_variables'
+@use './_typography'
 
 // Mixins
 
@@ -10,16 +11,14 @@
     left: 2.5%
     background-color: $color
 
-@mixin form-title($width, $height)
-    font-size: 2.8rem
-    margin-top: 70px
-    margin-bottom: 40px
+%form-title-decoration
+    margin: 50px 0
     position: relative
 
     &:before , &:after 
         content: ''
-        width: $width
-        height: $height
+        width: 45%
+        height: 5px
         position: absolute
        
     &:before 
@@ -47,11 +46,17 @@
 @mixin input-style($width, $max-width)
     height: 40px
     border: 1px solid variables.$primary-color
-    border-radius: 12px
+    border-radius: 8px
     background-color: variables.$bg-dark-color
-    color: variables.$text-color
     width: $width
     max-width: $max-width
+
+@mixin input-text($color: variables.$text-color, $align: left, $pad-l: 0px)
+    font-size: typography.$normal-font-size
+    color: $color
+    text-align: $align
+    padding-left: $pad-l
+
 
 // Placeholder Selectors
     
@@ -108,17 +113,6 @@
     flex-direction: column 
     gap: 16px
 
-%form-text 
-    margin-top: 20px
-    font-family: 'Klee One', sans-serif
-    text-align: center
-    
-    p 
-        margin-bottom: 5px
-
-    a 
-        color: variables.$text-color
-
 %status-color 
     &.not-started 
         color: nth(variables.$light-color, 1)
@@ -131,3 +125,9 @@
 
     &.completed
         color: nth(variables.$light-color, 4)
+
+%body-text 
+    font-size: typography.$normal-font-size
+    font-family: typography.$main-font-family
+    font-weight: 400
+    color: variables.$text-color

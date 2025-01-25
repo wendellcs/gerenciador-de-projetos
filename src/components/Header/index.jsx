@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react'
 import { FaGithub, FaLinkedin  } from "react-icons/fa";
 import { CiGlobe } from "react-icons/ci";
 import { Link } from 'react-router-dom';
-
-import './header.sass'
 export default function Header({headerStyle}){
     const [style, setStyle] = useState(undefined)
     useEffect(( ) => {

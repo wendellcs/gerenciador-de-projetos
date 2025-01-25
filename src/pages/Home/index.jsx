@@ -12,7 +12,6 @@ import { IoMdOptions } from 'react-icons/io';
 import LoginAlert from '../../components/LoginAlert';
 import Header from '../../components/Header'
 import Loading from '../../components/Loading/';
-import './home.sass'
 import ProjectStatus from '../../components/ProjectStatus';
 
 export default function Home(){
