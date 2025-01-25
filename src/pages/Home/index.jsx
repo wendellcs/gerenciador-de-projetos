@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { collection, getDocs } from 'firebase/firestore'; 
-import { db } from '../../services/firebaseConnections'
+import { db } from '../../services/firebase/firebaseConnections'
 
 import {IoAddCircleSharp } from 'react-icons/io5';
 import { CiSearch, CiSettings } from 'react-icons/ci';
@@ -11,7 +11,7 @@ import { IoMdOptions } from 'react-icons/io';
 
 import LoginAlert from '../../components/LoginAlert';
 import Header from '../../components/Header'
-import Loading from '../../components/Loading/script';
+import Loading from '../../components/Loading/';
 import './home.sass'
 import ProjectStatus from '../../components/ProjectStatus';
 

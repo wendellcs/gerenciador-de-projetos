@@ -1,0 +1,25 @@
+@use '../../assets/sass/_variables'
+
+.date-input
+    border: 1px solid variables.$primary-color
+    height: 40px 
+    width: 160px
+    border-radius: 8px
+    position: relative
+    background: variables.$bg-color
+    margin-top: 10px
+    
+    &::-webkit-calendar-picker-indicator 
+        position: absolute
+        right: 0
+        width: 30px
+        height: 30px
+        padding: 5px
+        cursor: pointer  
+        background-color: variables.$primary-color
+
+    &::-webkit-datetime-edit-text
+        color: variables.$primary-color
+
+    &::-webkit-datetime-edit-fields-wrapper
+        color: variables.$primary-color

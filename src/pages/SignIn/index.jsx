@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth, db} from '../../services/firebaseConnections.jsx'
+import { auth, db} from '../../services/firebase/firebaseConnections'
 import { setCurrentUser} from '../../redux/user/slice.jsx'
 
 import Header from '../../components/Header/index.jsx'

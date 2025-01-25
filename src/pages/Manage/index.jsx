@@ -4,15 +4,18 @@ import ProjectStatus from "../../components/ProjectStatus"
 import { FaGithub, FaTrashAlt, FaCheck } from "react-icons/fa";
 import { CiGlobe } from "react-icons/ci";
 
-import { getDocs, collection, setDoc, doc } from "firebase/firestore";
+import { getDocs, collection, setDoc, doc, deleteDoc } from "firebase/firestore";
 import { db } from '../../services/firebase/firebaseConnections'
+import { Navigate, useNavigate } from "react-router-dom";
 
 import './manage.sass'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Loading from "../../components/Loading/script";
+import Loading from "../../components/Loading";
+import { DatePicker } from "../../components/DateInput";
 
-import { verifyDate } from "../../services/verifyDate";
+
+import { verifyDate } from "../../services/dateFunctions";
 
 export default function Manage(){
     const [projectData, setProjectData] = useState(null)
@@ -29,6 +32,8 @@ export default function Manage(){
     const [repoLink, setRepoLink] = useState('')
 
     const { id } = useParams()
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         setLoading(true)
@@ -109,15 +114,41 @@ export default function Manage(){
         setTaskList(updatedTaskList)
     }
 
-    function editProject(e){
+    function updateProject(e){
         e.preventDefault()
 
-        // verifyDate(startDate)
+        console.log(projectData)
 
-        console.log(projectStatus)
+        const newData = {
+            status: projectStatus,
+            startDate: startDate,
+            endDate: endDate,
+            liveSiteLink: liveSiteLink,
+            repoLink: repoLink
+        }
 
-        console.log(liveSiteLink)
-        console.log(repoLink)
+        console.log(newData)
+
+
+        // if(verifyDate(startDate)){
+          
+        // }
+    }
+
+    async function deleteProject(e){
+        e.preventDefault()
+
+        if(sendDeletePopup()){
+            const docRef = doc(db, 'projects', id)
+            await deleteDoc(docRef)
+        } 
+
+        navigate('/')
+    }
+
+    function sendDeletePopup(){
+        // Criar um popup mais bonito
+        return window.confirm('Deseja excluir este projeto?')
     }
 
     return (
@@ -210,6 +241,8 @@ export default function Manage(){
                     </div>
 
                     <form className="container-edit">
+                        <h3 className="form-title">Editar informações do projeto</h3>
+
                         <div className="left-box">
                             <div className="box">
                                 <label>Atualize o status atual do projeto</label>
@@ -222,12 +255,12 @@ export default function Manage(){
                             <div className="date-box">
                                 <div className="box">
                                     <label>Inicio</label>
-                                    <input type="text" placeholder={projectData.dates[0]}/>
+                                    <DatePicker/>
                                 </div>
-                                {projectData.dates.length > 1 && (
+                                {projectData.dates.length > 1 && projectData.dates[1] !== '' && (
                                     <div className="box">
                                         <label>Conclusão</label>
-                                        <input type="text" value={endDate}/>
+                                        <input type="text" value={endDate} onChange={e => setEndDate(e.target.value)}/>
                                     </div>
                                 )}
                             </div>
@@ -244,7 +277,12 @@ export default function Manage(){
                             </div>
                         </div>
 
-                        <button className="btn save" onClick={editProject}>Salvar</button>
+                        <button className="btn save" onClick={updateProject}>Salvar</button>
+                        <div className="danger-area">
+                            <h3 className="danger-area-title">Área de risco</h3>
+                            <p className="danger-area-alert">Cuidado! <br/>Caso delete seu projeto <span className="highlight danger">você perderá tudo vinculado à ele</span> !</p>
+                            <button className="btn delete" onClick={(e) => deleteProject(e)}>Deletar projeto</button>
+                        </div>
                     </form>
                 </div>
             )}

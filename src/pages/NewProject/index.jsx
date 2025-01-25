@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import LoginAlert from '../../components/LoginAlert';
 import { collection, addDoc } from 'firebase/firestore';
 import ProjectStatus from '../../components/ProjectStatus'
-import { verifyDate } from '../../services/verifyDate';
+import { verifyDate } from '../../services/dateFunctions';
 
 export default function NewProject(){    
     const [projectName, setProjectName] = useState('')
@@ -76,7 +76,6 @@ export default function NewProject(){
     useEffect(()=> {
         setStartDate(generateDate())
     }, [])
-
 
     return (
         <main>

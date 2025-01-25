@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {Link, useNavigate} from 'react-router-dom'
-import {auth , db} from '../../services/firebaseConnections.jsx'
+import {auth , db} from '../../services/firebase/firebaseConnections'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 import Header from '../../components/Header/index.jsx'
