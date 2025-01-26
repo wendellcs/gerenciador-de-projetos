@@ -19,13 +19,13 @@ main
                 max-width: 300px
                 position: relative
                 
-                input
-                    @include utilities.input-style(100%, 300px)
-                    border: 1px solid variables.$secondary-light-color
-                    background-color: variables.$bg-color 
-
-                .icon 
-                    width: 2.8rem
+                .home-input
+                    @include utilities.input-style(auto, 100%)
+                    @include utilities.input-text($pad-l: 10px)
+                    width: 100%
+                    border-color: variables.$secondary-light-color
+       
+                .home-icon 
                     position: absolute
                     right: 10px
                     top: 3px
@@ -33,7 +33,6 @@ main
 
             &-title 
                 text-align: center
-                font-size: 3.2rem
                 color: variables.$primary-color
 
             .menu-icons
@@ -56,7 +55,6 @@ main
                     text-align: center
 
                     &-title 
-                        font-size: 2.8rem
                         margin-bottom: 30px
                         letter-spacing: 1px
 
@@ -74,9 +72,8 @@ main
                             border-radius: 8px 
 
                         &-infos 
-                            display: flex
+                            @extend %center-elements
                             justify-content: space-between
-                            align-content: center
                             padding: 10px 20px
 
                             .project-status 
@@ -84,7 +81,6 @@ main
                                     height: 35px
                                     width: 80px
                                     border: 1px solid 
-                                    border-radius: 8px
 
                             .project-settings , .project-tasks
                                 width: 50px
@@ -93,7 +89,7 @@ main
                                 @extend %center-elements
                                 border-radius: 8px
                                 color: variables.$primary-color
-                                font-size: 2.2rem
+                         
 
                                 &:not(.project-tasks)
                                     cursor: pointer

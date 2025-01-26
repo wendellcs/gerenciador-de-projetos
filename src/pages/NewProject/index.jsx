@@ -131,7 +131,7 @@ export default function NewProject(){
                             <input type="file" id='project-image' className='new-input image'onChange={(e) => setProjectImage(e.target.files[0])}/>
                         </div>
 
-                        <button className='btn add-project form' onClick={(e) => addProject(e)}>Adicionar</button>
+                        <button className='btn form' onClick={(e) => addProject(e)}>Adicionar</button>
                     </form>
                 ):(
                     <LoginAlert message={'para acessar essa página.'}/>

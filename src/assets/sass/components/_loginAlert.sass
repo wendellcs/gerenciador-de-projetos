@@ -1,11 +1,12 @@
 @use '../base/_variables'
-.loginMessage
+@use '../base/_typography'
+
+.alert-container
     text-align: center
     margin-top: 80px
 
     .link
-        text-decoration: underline
-        transition: .4s 
+        font-size: typography.$small-title-size
 
         &:hover 
-            color: variables.$primary-color
+            text-decoration: underline

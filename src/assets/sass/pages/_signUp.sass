@@ -5,6 +5,10 @@
     .signup-form 
         @include utilities.form-style(640px)
 
+        .signup-input
+            @include utilities.input-style(100%,380px)
+            @include utilities.input-text($pad-l: 10px)
+
         &-title
             @extend %form-title-decoration
 
@@ -13,10 +17,6 @@
 
             &:not(:first-of-type)
                 margin-top: 20px
-
-            .signup-input
-                @include utilities.input-style(100%,380px)
-                @include utilities.input-text($pad-l: 10px)
 
         .password-area
             display: flex
@@ -30,9 +30,8 @@
                 width: 100%
             
                 .signup-input
-                    margin-top: 16px
                     @include utilities.input-style(100%, 165px)
-                    @include utilities.input-text($pad-l: 10px)
+                    margin-top: 16px
         
         &-text 
             text-align: center

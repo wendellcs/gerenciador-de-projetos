@@ -47,8 +47,7 @@
     height: 40px
     border: 1px solid variables.$primary-color
     border-radius: 8px
-    background-color: variables.$bg-dark-color
-    width: $width
+    background-color: variables.$bg-dark-color 
     max-width: $max-width
 
 @mixin input-text($color: variables.$text-color, $align: left, $pad-l: 0px)
@@ -93,10 +92,9 @@
 
         &-name 
             @include input-style(100%, 280px)
+            @include input-text($align: center)
             border: 0
             background-color: variables.$bg-light-color
-            text-align: center
-            padding: 0
 
             &::placeholder
                 color: variables.$primary-color

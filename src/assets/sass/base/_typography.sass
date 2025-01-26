@@ -6,6 +6,8 @@ $small-font-size: 1.4rem
 $normal-font-size: 1.6rem
 $big-font-size: 1.8rem
 
+$btn-font-size: 1.8rem
+
 $big-title-size: 3.2rem 
 $normal-title-size: 2.6rem
 $small-title-size: 2.2rem
@@ -33,6 +35,7 @@ $secondary-font-family: 'Klee One', sans-serif
     color: variables.$primary-color
 
 .subtitle , .small-title, .smaller-title
+    text-align: center
     color: variables.$text-color
 
 .subtitle 
@@ -43,6 +46,7 @@ $secondary-font-family: 'Klee One', sans-serif
 
 .smaller-title
     font-size: $smaller-title-size
+    
 // Text Style
 
 .text , .text-secondary 
@@ -82,8 +86,6 @@ $secondary-font-family: 'Klee One', sans-serif
     font-size: $normal-font-size
 
     &.menu-link 
-        color: variables.$secondary-color
-
-
-
-// Criar o placeholder selector para os textos dos buttons
+        font-size: $big-font-size
+        font-weight: bold
+        color: variables.$secondary-light-color

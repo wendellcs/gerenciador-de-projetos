@@ -74,11 +74,11 @@ export default function SignUp(){
 
                 <div className='password-area'>
                     <div className='password-box'>
-                        <label className='label secondary'>Sua senha:</label>
+                        <label className='label'>Sua senha:</label>
                         <input type='password' className='signup-input' value={password} onChange={(e) => {setPassword(e.target.value)}} placeholder='********'/>
                     </div>
                     <div className='password-box'>
-                        <label className='label secondary'>Confirme sua senha:</label>
+                        <label className='label'>Confirme sua senha:</label>
                         <input type='password' className='signup-input' value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}} placeholder='********'/>
                     </div>
                 </div>

@@ -6,13 +6,12 @@ import { CiGlobe } from "react-icons/ci";
 
 import { getDocs, collection, setDoc, doc, deleteDoc } from "firebase/firestore";
 import { db } from '../../services/firebase/firebaseConnections'
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { DatePicker } from "../../components/DateInput";
-
 
 import { verifyDate } from "../../services/dateFunctions";
 
@@ -159,7 +158,7 @@ export default function Manage(){
             ) : (
                 <div className="container">
                     <div className="container-project">
-                        <h2 className="container-project-title">{projectData.name}</h2>
+                        <h2 className="subtitle">{projectData.name}</h2>
 
                         <div className="project">
                             <div className="project-image">
@@ -168,12 +167,12 @@ export default function Manage(){
 
                             <div className="project-infos">
                                 <div className="box">
-                                    <h3 className="box-title">Tasks</h3>
+                                    <h3 className="smaller-title">Tasks</h3>
                                     <p className="tasks">{taskList.filter(t => t.done == false).length}</p>
                                 </div>
 
                                 <div className="box">
-                                    <h3 className="box-title">Status</h3>
+                                    <h3 className="smaller-title">Status</h3>
                                     <div className="box-status">
                                         <ProjectStatus simple={true} status={projectData.status}/>
                                     </div>
@@ -181,7 +180,7 @@ export default function Manage(){
                                 </div>
 
                                 <div className="box">
-                                    <h3 className="box-title">Links</h3>
+                                    <h3 className="smaller-title">Links</h3>
                                     <a href="#" target="_blank" className="link"><CiGlobe className="icon light"/></a>
                                     <a href="#" target="_blank" className="link"><FaGithub className="icon light"/></a>
                                 </div>
@@ -190,7 +189,7 @@ export default function Manage(){
                     </div>
 
                     <div className="container-todo">
-                        <h2 className="container-todo-title">Tarefas</h2>
+                        <h2 className="subtitle">Tarefas</h2>
 
                         <div className="todo">
                             <div className="tasks-container">
@@ -231,20 +230,20 @@ export default function Manage(){
 
                             <div className="entry">
                                 <div className="box">
-                                    <input type="text" placeholder="Tarefa" value={task} onChange={(e) => setTask(e.target.value)}/>
+                                    <input type="text" className="input-task" placeholder="Tarefa" value={task} onChange={(e) => setTask(e.target.value)}/>
                                     <button className="btn add-task" onClick={() => addTask()}>Add</button>
                                 </div>
-                                <p className="text">As tasks são únicas de cada projeto</p>
+                                <p className="text small">As tasks são únicas de cada projeto</p>
                             </div>
                         </div>
                     </div>
 
                     <form className="container-edit">
-                        <h3 className="form-title">Editar informações do projeto</h3>
+                        <h3 className="small-title form-title">Editar informações do projeto</h3>
 
                         <div className="left-box">
                             <div className="box">
-                                <label>Atualize o status atual do projeto</label>
+                                <label className="label">Atualize o status atual do projeto</label>
 
                                 <div className="status-box">
                                     <ProjectStatus simple={false} checkStatus={setProjectStatus}/>
@@ -253,12 +252,12 @@ export default function Manage(){
 
                             <div className="date-box">
                                 <div className="box">
-                                    <label>Inicio</label>
+                                    <label className="label">Inicio</label>
                                     <DatePicker/>
                                 </div>
                                 {projectData.dates.length > 1 && projectData.dates[1] !== '' && (
                                     <div className="box">
-                                        <label>Conclusão</label>
+                                        <label className="label">Conclusão</label>
                                         <input type="text" value={endDate} onChange={e => setEndDate(e.target.value)}/>
                                     </div>
                                 )}
@@ -267,19 +266,19 @@ export default function Manage(){
 
                         <div className="right-box">
                             <div className="box">
-                                <label>Insira o link do live site</label>
-                                <input type="text" placeholder={projectData.liveSite || "www.meusite.com"} value={liveSiteLink} onChange={e => setLiveSiteLink(e.target.value)}/>
+                                <label className="label">Insira o link do live site</label>
+                                <input type="text" className="edit-input" placeholder={projectData.liveSite || "www.meusite.com"} value={liveSiteLink} onChange={e => setLiveSiteLink(e.target.value)}/>
                             </div>
                             <div className="box">
-                                <label>Insira o link do repositório</label>
-                                <input type="text" placeholder={projectData.repo || "www.github.com/seuGitHub/repo"} value={repoLink} onChange={e => setRepoLink(e.target.value)}/>
+                                <label className="label">Insira o link do repositório</label>
+                                <input type="text" className="edit-input" placeholder={projectData.repo || "www.github.com/seuGitHub/repo"} value={repoLink} onChange={e => setRepoLink(e.target.value)}/>
                             </div>
                         </div>
 
                         <button className="btn save" onClick={updateProject}>Salvar</button>
                         <div className="danger-area">
-                            <h3 className="danger-area-title">Área de risco</h3>
-                            <p className="danger-area-alert">Cuidado! <br/>Caso delete seu projeto <span className="highlight danger">você perderá tudo vinculado à ele</span> !</p>
+                            <h3 className="small-title">Área de risco</h3>
+                            <p className="text normal">Cuidado! <br/>Caso delete seu projeto <span className="highlight danger">você perderá tudo vinculado à ele</span> !</p>
                             <button className="btn delete" onClick={(e) => deleteProject(e)}>Deletar projeto</button>
                         </div>
                     </form>
