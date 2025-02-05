@@ -127,10 +127,9 @@ export default function Manage(){
 
         console.log(newData)
 
-
-        // if(verifyDate(startDate)){
+        if(verifyDate(startDate)){
           
-        // }
+        }
     }
 
     async function deleteProject(e){
@@ -166,23 +165,40 @@ export default function Manage(){
                             </div>
 
                             <div className="project-infos">
-                                <div className="box">
-                                    <h3 className="smaller-title">Tasks</h3>
-                                    <p className="tasks">{taskList.filter(t => t.done == false).length}</p>
-                                </div>
-
-                                <div className="box">
-                                    <h3 className="smaller-title">Status</h3>
-                                    <div className="box-status">
-                                        <ProjectStatus simple={true} status={projectData.status}/>
+                                <div className="top-box">
+                                    <div className="top-box-tasks">
+                                        <h3 className="smaller-title">Tasks</h3>
+                                        <p className="tasks">{taskList.filter(t => t.done == false).length}</p>
                                     </div>
-                                    <p className={`status ${projectData.status}`}>{projectData.status}</p>
+                                    <div className="top-box-status">
+                                        <h3 className="smaller-title">Status</h3>
+                                        <ProjectStatus simple={true} status={projectData.status}/>
+                                        <p className={`status ${projectData.status}`}>{projectData.status}</p>
+                                    </div>
                                 </div>
 
                                 <div className="box">
-                                    <h3 className="smaller-title">Links</h3>
-                                    <a href="#" target="_blank" className="link"><CiGlobe className="icon light"/></a>
-                                    <a href="#" target="_blank" className="link"><FaGithub className="icon light"/></a>
+                                    <div className="box-links">
+                                        <h3 className="smaller-title">Links</h3>
+                                        <div className="link">
+                                            <CiGlobe className="icon light"/>
+                                            <a href={projectData.liveSiteLink || 'https://github.com'} target="_blank" className="link secondary">{projectData.liveSiteLink || 'github.com'}</a>
+                                        </div>
+                                        <div className="link">
+                                            <FaGithub className="icon light"/>
+                                            <a href={projectData.repoLink || 'https://github.com'} target="_blank" className="link secondary">{projectData.repoLink || 'github.com'}</a>
+                                        </div>
+                                    </div>
+
+                                    <div className="box-description">
+                                        <h3 className="smaller-title">Descrição</h3>
+                                        <p className="box-description">{projectData.description || 'Aqui aparecerá a descrição do seu projeto.'}</p>
+                                    </div>
+                                </div>
+
+                                <div className="box">
+                                    <h3 className="smaller-title">Data de inicio do projeto</h3>
+                                    <p className="text date">{projectData.dates[0]}</p>
                                 </div>
                             </div>
                         </div>
@@ -250,7 +266,7 @@ export default function Manage(){
                                 </div>
                             </div>
 
-                            <div className="date-box">
+                            <div className="box">
                                 <div className="box">
                                     <label className="label">Inicio</label>
                                     <DatePicker/>
@@ -262,6 +278,11 @@ export default function Manage(){
                                     </div>
                                 )}
                             </div>
+
+                            <div className="box">
+                                <label className="label">Editar nome do projeto</label>
+                                <input type="text" placeholder={projectData.name}/>
+                            </div>
                         </div>
 
                         <div className="right-box">
@@ -272,6 +293,11 @@ export default function Manage(){
                             <div className="box">
                                 <label className="label">Insira o link do repositório</label>
                                 <input type="text" className="edit-input" placeholder={projectData.repo || "www.github.com/seuGitHub/repo"} value={repoLink} onChange={e => setRepoLink(e.target.value)}/>
+                            </div>
+                
+                            <div className="box">
+                                <label className="label">Editar a descrição do projeto</label>
+                                <input type="text" placeholder={projectData.description || 'Descrição do projeto'}/>
                             </div>
                         </div>
 

@@ -10,7 +10,7 @@
         margin: 50px 0
 
     form 
-        @include utilities.form-style(auto, 600px)
+        @include utilities.form-style(600px)
         margin: 0 0 100px 0
 
         .form-title 
@@ -23,7 +23,7 @@
             margin-bottom: 20px
 
             .new-input
-                @include utilities.input-style(100%, 380px)
+                @include utilities.input-style(100%)
                 @include utilities.input-text($pad-l: 10px)
 
             .text
@@ -32,7 +32,7 @@
                 @extend %status-color
             
             .description 
-                @include utilities.input-style($width: 100%, $max-width: 350px)
+                @include utilities.input-style(100%)
                 height: 100px
                 color: variables.$text-color
                 padding: 5px 10px
@@ -52,7 +52,7 @@
                 background-color: variables.$bg-dark-color
                 
                 .new-input.date
-                    @include utilities.input-style( 120px , 100%)
+                    @include utilities.input-style( 120px)
                     @include utilities.input-text($align: center)
                     height: 35px
                     border: none

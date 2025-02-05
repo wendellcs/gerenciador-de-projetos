@@ -6,11 +6,11 @@
         @include utilities.form-style(640px)
 
         .signup-input
-            @include utilities.input-style(100%,380px)
+            @include utilities.input-style(100%)
             @include utilities.input-text($pad-l: 10px)
 
         &-title
-            @extend %form-title-decoration
+            @extend %title-decoration
 
         &-box
             @extend %form-box
@@ -30,7 +30,7 @@
                 width: 100%
             
                 .signup-input
-                    @include utilities.input-style(100%, 165px)
+                    @include utilities.input-style(100%)
                     margin-top: 16px
         
         &-text 

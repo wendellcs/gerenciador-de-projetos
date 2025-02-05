@@ -3,14 +3,11 @@
 @use '../base/_typography'
 
 .container 
-    display: grid
-    grid-template-columns: repeat(2, 50%)
-    padding: 0 120px
     margin-top: 80px
     text-align: center
 
     h2
-        margin-bottom: 50px
+        margin: 100px 0 40px 0
 
     h3
         margin-bottom: 10px
@@ -19,11 +16,11 @@
         @include utilities.input-text($pad-l: 10px)
 
     .edit-input 
-        @include utilities.input-style(80%, 250px)
+        @include utilities.input-style(80%)
         margin: 0 auto
        
     .input-task
-        @include utilities.input-style(100%  , 280px )
+        @include utilities.input-style(100%)
 
     &-project 
         .project 
@@ -45,16 +42,58 @@
 
             &-infos 
                 display: flex
-                justify-content: space-between
-                margin: 20px 30px
+                flex-direction: column
+                align-items: center
 
+                .box , .top-box 
+                    padding: 30px 0
+                    border-bottom: 1px solid variables.$primary-color
+                    width: 90%
+                
                 .box 
                     display: flex 
                     flex-direction: column
 
-                    .status 
-                        font-size: typography.$small-font-size
-                        @extend %status-color
+                    &:last-of-type
+                        margin-bottom: 20px
+
+                    &-links
+                        display: flex
+                        align-items: center
+                        flex-direction: column
+                        gap: 10px
+
+                        .link 
+                            display: flex
+                            align-items: center
+                            gap: 15px
+
+                            a 
+                                text-decoration: underline
+                    
+                    &-description 
+                        margin-top: 30px
+
+                        p 
+                            color: variables.$secondary-light-color
+
+                    .date 
+                        margin-top: 10px
+                        color: variables.$secondary-light-color
+
+                .top-box
+                    display: flex
+                    justify-content: center
+                    gap: 100px
+
+                    .tasks 
+                        color: variables.$secondary-light-color
+                        font-size: typography.$big-font-size
+                    
+                    &-status
+                        .status 
+                            font-size: typography.$small-font-size
+                            @extend %status-color
 
     &-todo 
         .todo
@@ -64,7 +103,7 @@
             margin: 0 auto
             border: 1px solid variables.$secondary-dark-color
             background-color: variables.$bg-dark-color
-            height: 420px
+            height: 600px
             display: flex
             flex-direction: column
             padding: 25px 15px
@@ -91,7 +130,7 @@
 
                 .tasks-todo, .tasks-done
                     @extend %todo-task-style
-                    height: 115px
+                    height: 250px
                     overflow: auto
 
                     &::-webkit-scrollbar 
@@ -177,21 +216,6 @@
         .left-box 
             position: relative
 
-            .status-box 
-                margin: 15px 0
-                @extend %center-elements
-
-            .date-box 
-                @extend %center-elements
-                gap: 25px
-
-                .box 
-                    display: flex
-                    flex-direction: column
-
-                    label 
-                        margin-top: 15px
-
             &:after 
                 content: ''
                 position: absolute
@@ -200,6 +224,18 @@
                 background-color: variables.$secondary-color
                 right: -1px
                 top: 0
+
+            .box 
+                flex-direction: column
+                margin: 15px auto
+                @extend %center-elements
+
+                label 
+                    margin-bottom: 15px
+
+                .date-input 
+                    padding-left: 10px
+
                 
         .right-box 
             .box

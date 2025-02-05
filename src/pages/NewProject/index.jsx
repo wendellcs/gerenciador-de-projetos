@@ -43,6 +43,11 @@ export default function NewProject(){
     async function addProject(e){
         e.preventDefault()
 
+        if (!projectName ){
+            alert('Por favor, insira um nome para o projeto.')
+            return
+        }
+
         if(verifyDate(startDate)) {
             await addDoc(collection(db, 'projects'), {
                 name: projectName,
