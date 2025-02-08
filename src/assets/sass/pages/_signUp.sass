@@ -3,7 +3,7 @@
 
 .container-signup
     .signup-form 
-        @include utilities.form-style(640px)
+        @include utilities.form-style(500px)
 
         .signup-input
             @include utilities.input-style(100%)
@@ -18,21 +18,9 @@
             &:not(:first-of-type)
                 margin-top: 20px
 
-        .password-area
-            display: flex
-            justify-content: space-between
-            max-width: 380px
-            width: 80%
-            
-            .password-box
-                margin-top: 20px
-                max-width: 165px
-                width: 100%
-            
-                .signup-input
-                    @include utilities.input-style(100%)
-                    margin-top: 16px
-        
+            .signup-input
+                @include utilities.input-style(100%)
+
         &-text 
             text-align: center
-            margin-top: 20px
+            margin: 10px 0 40px 0

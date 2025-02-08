@@ -72,15 +72,14 @@ export default function SignUp(){
                     <input type='email' className='signup-input' value={email} onChange={(e) => {setEmail(e.target.value)}} placeholder='exemplo@exemplo.com'/>
                 </div>
 
-                <div className='password-area'>
-                    <div className='password-box'>
-                        <label className='label'>Sua senha:</label>
-                        <input type='password' className='signup-input' value={password} onChange={(e) => {setPassword(e.target.value)}} placeholder='********'/>
-                    </div>
-                    <div className='password-box'>
-                        <label className='label'>Confirme sua senha:</label>
-                        <input type='password' className='signup-input' value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}} placeholder='********'/>
-                    </div>
+                <div className='signup-form-box'>
+                    <label className='label'>Sua senha:</label>
+                    <input type='password' className='signup-input' value={password} onChange={(e) => {setPassword(e.target.value)}} placeholder='********'/>
+                </div>
+
+                <div className='signup-form-box'>
+                    <label className='label'>Confirme sua senha:</label>
+                    <input type='password' className='signup-input' value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}} placeholder='********'/>
                 </div>
 
                 <button className='btn form' onClick={(e) => {handleSubmit(e)}} type='submit'>Criar conta</button>

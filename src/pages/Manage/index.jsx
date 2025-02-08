@@ -97,18 +97,19 @@ export default function Manage(){
     }
 
     function toggleTaskDoneState(taskId){
+        // Refatorar isso 
         const updatedTaskList = []
         for(let task of taskList){
             if(task.id == taskId){
                 task.done = !task.done
-                updateDataBase(taskList)
+                // updateDataBase(taskList)
                 updatedTaskList.push(...taskList)
                 break
             }
         }
         const updatedDoneTaskList = taskList.filter(task => task.done)
-        setDoneTaskList(updatedDoneTaskList)
-
+        // setDoneTaskList(updatedDoneTaskList)
+        
         setTaskList(updatedTaskList)
     }
 
@@ -226,7 +227,7 @@ export default function Manage(){
                                     })}
                                 </div>
 
-                                <div className="tasks-done">
+                                {/* <div className="tasks-done">
                                     {doneTaskList.map((t) => {
                                         return (
                                             <div className='task' key={t.id}>
@@ -241,7 +242,7 @@ export default function Manage(){
                                             </div>
                                         )   
                                     })}
-                                </div>
+                                </div> */}
                             </div>
 
                             <div className="entry">
