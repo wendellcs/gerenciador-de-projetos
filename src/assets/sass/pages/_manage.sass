@@ -12,15 +12,9 @@
     h3
         margin-bottom: 10px
 
-    .input-task, .edit-input 
-        @include utilities.input-text($pad-l: 10px)
-
-    .edit-input 
-        @include utilities.input-style(80%)
-        margin: 0 auto
-       
     .input-task
         @include utilities.input-style(100%)
+        @include utilities.input-text($pad-l: 10px)
 
     &-project 
         .project 
@@ -186,64 +180,69 @@
                         width: 95%
                         background-color: variables.$secondary-light-color 
 
-    &-edit 
+    &-edit
         width: 100%
-        max-width: 780px
-        margin: 40px auto
+        max-width: 750px
+        margin: 100px auto
         background-color: variables.$bg-dark-color
-        grid-column: 1 / 3
         border: 1px solid variables.$secondary-dark-color
-        border-radius: 32px
-        padding: 20px
-        display: grid 
-        grid-template-columns: repeat(2, 50%)
+        border-radius: 16px
+        padding: 50px 20px
+        display: flex 
+        flex-direction: column
+        text-align: center
 
-        .form-title 
-            grid-column: 1/3
-            margin: 10px 0 40px 0
+        .small-title
+            margin-bottom: 40px
+
+        .smaller-title 
+            margin-bottom: 50px
         
-        .left-box 
-            position: relative
+        &-input 
+            @include utilities.input-style(auto)
+            @include utilities.input-text($align: center)
+            width: 280px
+            border-color: variables.$secondary-light-color
 
-            &:after 
-                content: ''
-                position: absolute
-                width: 1px
-                height: 100%
-                background-color: variables.$secondary-color
-                right: -1px
-                top: 0
+        .box 
+            @extend %center-elements
+            display: flex
+            flex-direction: column
+            gap: 15px
 
-            .box 
-                flex-direction: column
-                margin: 15px auto
-                @extend %center-elements
+            &:not(:first-of-type)
+                margin-top: 30px
 
-                label 
-                    margin-bottom: 15px
+        &-basic
+            border-top: 2px solid variables.$secondary-light-color
+            border-bottom: 2px solid variables.$secondary-light-color
+            padding: 50px 0
 
-                .date-input 
-                    padding-left: 10px
+        &-others
+            padding: 50px 0
+            display: grid 
+            grid-template-columns: repeat(2, 50%)
 
-                
-        .right-box 
             .box
-                display: flex
-                flex-direction: column
+                &:nth-child(3)
+                    margin-top: 0
 
-                &:last-of-type
-                    label 
-                        margin-top: 40px
+            textarea
+                @include utilities.input-style(auto)
+                @include utilities.input-text()
+                border-color: variables.$secondary-light-color
+                padding: 8px
+                width: 280px
+                height: 100%
 
-                label 
-                    margin-bottom: 10px
+            .smaller-title 
+                grid-column: 1/3
 
         .danger-area 
             @extend %center-elements
-            grid-column: 1/3
             flex-direction: column
             margin-top: 20px
-            border-top: 1px solid variables.$danger-color
+            border-top: 2px solid variables.$danger-color
             padding-top: 30px
 
             p 

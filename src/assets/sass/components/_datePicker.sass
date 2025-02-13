@@ -1,13 +1,15 @@
 @use '../base/_variables'
+@use '../base/_typography'
 
 .date-input
-    border: 1px solid variables.$primary-color
+    border: 1px solid variables.$secondary-light-color
     height: 40px 
     width: 160px
     border-radius: 8px
     position: relative
-    background: variables.$bg-color
-    margin-top: 10px
+    background: variables.$bg-dark-color
+    padding-left: 12px
+    font-size: typography.$normal-font-size
     
     &::-webkit-calendar-picker-indicator 
         position: absolute
@@ -16,10 +18,10 @@
         height: 30px
         padding: 5px
         cursor: pointer  
-        background-color: variables.$primary-color
+        background-color: variables.$secondary-light-color
 
     &::-webkit-datetime-edit-text
-        color: variables.$primary-color
+        color: variables.$secondary-light-color
 
     &::-webkit-datetime-edit-fields-wrapper
-        color: variables.$primary-color
+        color: variables.$secondary-light-color

@@ -196,7 +196,7 @@ export default function Manage(){
                     </div>
 
                     <div className="container-todo">
-                        <h2 className="subtitle">Tarefas</h2>
+                        <h2 className="subtitle">Tarefas do projeto</h2>
 
                         <div className="todo">
                             <div className="tasks-container">
@@ -230,15 +230,17 @@ export default function Manage(){
                     </div>
 
                     <form className="container-edit">
-                        <h3 className="small-title form-title">Área de edição</h3>
+                        <h3 className="small-title">Área de edição</h3>
 
-                        <div className="left-box">
+                        <div className="container-edit-basic">
+                            <h4 className="smaller-title">Editar informações básicas do projeto</h4>
+                            <div className="box">
+                                <label className="label">Nome do projeto</label>
+                                <input type="text" placeholder={projectData.name} className="container-edit-input"/>
+                            </div>
                             <div className="box">
                                 <label className="label">Atualize o status atual do projeto</label>
-
-                                <div className="status-box">
-                                    <ProjectStatus simple={false} checkStatus={setProjectStatus}/>
-                                </div>
+                                <ProjectStatus simple={false} checkStatus={setProjectStatus}/>
                             </div>
 
                             <div className="box">
@@ -246,39 +248,31 @@ export default function Manage(){
                                     <label className="label">Inicio</label>
                                     <DatePicker/>
                                 </div>
-                                {projectData.dates.length > 1 && projectData.dates[1] !== '' && (
-                                    <div className="box">
-                                        <label className="label">Conclusão</label>
-                                        <input type="text" value={endDate} onChange={e => setEndDate(e.target.value)}/>
-                                    </div>
-                                )}
-                            </div>
-
-                            <div className="box">
-                                <label className="label">Editar nome do projeto</label>
-                                <input type="text" placeholder={projectData.name}/>
                             </div>
                         </div>
 
-                        <div className="right-box">
-                            <div className="box">
-                                <label className="label">Insira o link do live site</label>
-                                <input type="text" className="edit-input" placeholder={projectData.liveSite || "www.meusite.com"} value={liveSiteLink} onChange={e => setLiveSiteLink(e.target.value)}/>
-                            </div>
-                            <div className="box">
-                                <label className="label">Insira o link do repositório</label>
-                                <input type="text" className="edit-input" placeholder={projectData.repo || "www.github.com/seuGitHub/repo"} value={repoLink} onChange={e => setRepoLink(e.target.value)}/>
+                        <div className="container-edit-others">
+                            <h4 className="smaller-title">Editar links e descrição</h4>
+                            <div className="left">
+                                <div className="box">
+                                    <label className="label">Insira o link do live site</label>
+                                    <input type="text"  className="container-edit-input" placeholder={projectData.liveSite || "www.meusite.com"} value={liveSiteLink} onChange={e => setLiveSiteLink(e.target.value)}/>
+                                </div>
+                                <div className="box">
+                                    <label className="label">Insira o link do repositório</label>
+                                    <input type="text"  className="container-edit-input" placeholder={projectData.repo || "www.github.com/seuGitHub/repo"} value={repoLink} onChange={e => setRepoLink(e.target.value)}/>
+                                </div>
                             </div>
                 
                             <div className="box">
                                 <label className="label">Editar a descrição do projeto</label>
-                                <input type="text" placeholder={projectData.description || 'Descrição do projeto'}/>
+                                <textarea type="text" className="container-edit-textarea" placeholder={projectData.description || 'Descrição do projeto'}/>
                             </div>
                         </div>
 
                         <button className="btn save" onClick={updateProject}>Salvar</button>
                         <div className="danger-area">
-                            <h3 className="small-title">Área de risco</h3>
+                            <h4 className="smaller-title">Área de risco</h4>
                             <p className="text normal">Cuidado! <br/>Caso delete seu projeto <span className="highlight danger">você perderá tudo vinculado à ele</span> !</p>
                             <button className="btn delete" onClick={(e) => deleteProject(e)}>Deletar projeto</button>
                         </div>
