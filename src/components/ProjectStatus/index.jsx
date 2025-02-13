@@ -1,10 +1,7 @@
-import '../../assets/sass/_icon.sass'
 import { useState } from 'react';
 import {IoCheckmarkDoneCircleOutline, IoCodeWorkingSharp,  } from 'react-icons/io5';
 import { MdCancel } from 'react-icons/md';
 import { GiNightSleep } from 'react-icons/gi';
-
-import './projectStatus.sass'
 
 export default function ProjectStatus({simple, status, checkStatus}){
     const [checkNotStarted, setCheckNotStarted] = useState(true)

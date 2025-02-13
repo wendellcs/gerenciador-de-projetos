@@ -12,7 +12,6 @@ import { IoMdOptions } from 'react-icons/io';
 import LoginAlert from '../../components/LoginAlert';
 import Header from '../../components/Header'
 import Loading from '../../components/Loading/';
-import './home.sass'
 import ProjectStatus from '../../components/ProjectStatus';
 
 export default function Home(){
@@ -57,13 +56,12 @@ export default function Home(){
         <main>
             <Header/>
             <div className='home-container'>
-
                 <section className='home-menu'>
                     <form className='home-menu-form'>
-                        <input type='text' placeholder='Buscar projeto'/>
-                        <CiSearch className='icon light'/>
+                        <input type='text' placeholder='Buscar projeto' className='home-input'/>
+                        <CiSearch className='icon light home-icon'/>
                     </form>
-                    <h2 className='home-menu-title'>Seus Projetos</h2>
+                    <h2 className='home-menu-title subtitle'>Seus Projetos</h2>
                     <div className='menu-icons'>
                         <IoMdOptions className='icon primary'/>
                         <Link to={'/newproject'}><IoAddCircleSharp className='icon primary'/></Link>
@@ -78,7 +76,7 @@ export default function Home(){
                         <div className='conected'>
                             {projectList.length > 0 && projectList.map((project) =>
                                 <div className='project' key={project.id}>
-                                    <h3 className='project-title'>{project.name}</h3>
+                                    <h3 className='small-title project-title'>{project.name}</h3>
 
                                     <div className='project-container'>
                                         <div className='project-container-image'>
@@ -93,7 +91,7 @@ export default function Home(){
                                             <p className='project-tasks'>{project.taskList?.length || '0'}</p>
 
                                             <div className='project-status'>
-                                            <ProjectStatus simple={true} status={project.status}/>
+                                                <ProjectStatus simple={true} status={project.status}/>
                                             </div>
 
                                             <div className='project-settings'>

@@ -1,4 +1,3 @@
-import './loading.sass'
 import { RiLoaderFill } from "react-icons/ri";
 
 export default function Loading(){

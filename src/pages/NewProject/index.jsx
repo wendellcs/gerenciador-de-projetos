@@ -1,4 +1,3 @@
-import './newProject.sass'
 import Header from '../../components/Header'
 import { useState, useEffect } from 'react'
 import { CiImageOn } from "react-icons/ci";
@@ -44,6 +43,11 @@ export default function NewProject(){
     async function addProject(e){
         e.preventDefault()
 
+        if (!projectName ){
+            alert('Por favor, insira um nome para o projeto.')
+            return
+        }
+
         if(verifyDate(startDate)) {
             await addDoc(collection(db, 'projects'), {
                 name: projectName,
@@ -81,58 +85,59 @@ export default function NewProject(){
         <main>
             <Header/>
             <div className="new-container">
-                <h1>Adicionar Projeto</h1>
+                <h2 className='new-container-title subtitle'>Adicionar Projeto</h2>
                 
                 {user && user.email ? (
 
                     <form>
-                    <h2 className='title'>Informações do projeto</h2>
-                    <div className="form-box">
-                        <label htmlFor = 'project-name'>Nome do projeto</label>
-                        <input type="text" placeholder='Nome do projeto' id='project-name' value={projectName} onChange={e => {setProjectName(e.target.value)}}/>
-                    </div>
+                        <h3 className='form-title small-title'>Informações do projeto</h3>
+                        <div className="form-box">
+                            <label htmlFor = 'project-name' className='label secondary'>Nome do projeto</label>
+                            <input type="text" className='new-input' placeholder='Nome do projeto' id='project-name' value={projectName} onChange={e => {setProjectName(e.target.value)}}/>
+                        </div>
 
-                    <div className="form-box">
-                        <h3>Status do projeto</h3>
+                        <div className="form-box">
+                            <label className='label secondary'>Status do projeto</label>
 
-                        <ProjectStatus simple={false} checkStatus={setProjectStatus}/>
+                            <ProjectStatus simple={false} checkStatus={setProjectStatus}/>
 
-                        <p className={`text ${statusMessage[0]}`}>{statusMessage[1]}</p>
-                    </div>
+                            <p className={`text ${statusMessage[0]} normal`}>{statusMessage[1]}</p>
+                        </div>
 
-                    <div className="form-box">
-                        <label htmlFor = 'project-description'>Descrição do projeto</label>
-                        <textarea placeholder='Descreva seu projeto' className='description' id="project-description" value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)}></textarea>
-                    </div>
+                        <div className="form-box">
+                            <label htmlFor = 'project-description' className='label secondary'>Descrição do projeto</label>
+                            <textarea placeholder='Descreva seu projeto' className='description' id="project-description" value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)}></textarea>
+                        </div>
 
-                    <div className="form-box">
-                        <div className="box-date">
-                            <label htmlFor = 'project-description'>Data de inicio</label>
-                            <div className='date'>
-                                <input type="text" className='date-input' disabled={checkboxChecked} value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
+                        <div className="form-box">
+                            <h4 className='date-title smaller-title'>Data de inicio do projeto</h4>
+                            <div className="box-date">
+                                <label htmlFor = 'project-description' className='label primary'>Data de inicio</label>
+                                <div className='date'>
+                                    <input type="text" className='new-input date' disabled={checkboxChecked} value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
+                                </div>
+                            </div>
+
+                            <div className="box-checkbox">
+                                <label htmlFor="" className='label secondary'>Nunca trabalhei nesse projeto antes</label>
+                                <div className='checkbox' onClick={() => setCheckboxChecked(!checkboxChecked)}>
+                                    {checkboxChecked && <FaCheck className='icon primary'/>}
+                                </div>
                             </div>
                         </div>
 
-                        <div className="box-checkbox">
-                            <label htmlFor="">Nunca trabalhei nesse projeto antes</label>
-                            <div className='checkbox' onClick={() => setCheckboxChecked(!checkboxChecked)}>
-                                {checkboxChecked && <FaCheck className='icon primary'/>}
+                        <div className='form-box'>
+                            <label htmlFor = 'project-image' className='label secondary'>Print do projeto</label>
+
+                            <div className="preview">
+                                <CiImageOn className='icon primary'/>
                             </div>
-                        </div>
-                    </div>
 
-                    <div className='form-box'>
-                        <label htmlFor = 'project-image'>Print do projeto</label>
-
-                        <div className="preview">
-                            <CiImageOn className='icon primary'/>
+                            <input type="file" id='project-image' className='new-input image'onChange={(e) => setProjectImage(e.target.files[0])}/>
                         </div>
 
-                        <input type="file" className='project-image' onChange={(e) => setProjectImage(e.target.files[0])}/>
-                    </div>
-
-                    <button className='btn add-project form' onClick={(e) => addProject(e)}>Adicionar</button>
-                </form>
+                        <button className='btn form' onClick={(e) => addProject(e)}>Adicionar</button>
+                    </form>
                 ):(
                     <LoginAlert message={'para acessar essa página.'}/>
                 )}

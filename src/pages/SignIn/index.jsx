@@ -6,7 +6,6 @@ import { auth, db} from '../../services/firebase/firebaseConnections'
 import { setCurrentUser} from '../../redux/user/slice.jsx'
 
 import Header from '../../components/Header/index.jsx'
-import './signIn.sass'
 import { getDoc, doc } from 'firebase/firestore'
 
 export default function SignIn(){
@@ -52,22 +51,22 @@ export default function SignIn(){
             <Header headerStyle='login'/>
             
             <form className='login-form'>
-                <h2 className='login-form-title'>Faça login</h2>
+                <h2 className='login-form-title subtitle'>Faça login</h2>
 
                 <div className='login-form-box'>
-                    <label>Seu e-mail:</label>
-                    <input type='email' value={email} onChange={(e) => {setEmail(e.target.value)}} placeholder='exemplo@exemplo.com'/>
+                    <label className='label secondary'>Seu e-mail:</label>
+                    <input type='email' className='login-input' value={email} onChange={(e) => {setEmail(e.target.value)}} placeholder='exemplo@exemplo.com'/>
                 </div>
                 <div className='login-form-box'>
-                    <label>Sua senha:</label>
-                    <input type='password' value={password} onChange={(e) => {setPassword(e.target.value)}}  placeholder='********'/>
+                    <label className='label secondary'>Sua senha:</label>
+                    <input type='password' className='login-input' value={password} onChange={(e) => {setPassword(e.target.value)}}  placeholder='********'/>
                 </div>
 
                 <button className='btn form' onClick={(e) => {handleSignIn(e)}} type='submit'>Entrar</button>
 
                 <div className='login-form-text'>
-                    <p>Ainda não tem uma conta?</p>
-                    <Link to={'/register'}>Crie uma aqui</Link>
+                    <p className='text normal'>Ainda não tem uma conta?</p>
+                    <Link className='link' to={'/register'}>Crie uma aqui</Link>
                 </div>
             </form>
         </div>

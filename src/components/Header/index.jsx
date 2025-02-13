@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react'
 import { FaGithub, FaLinkedin  } from "react-icons/fa";
 import { CiGlobe } from "react-icons/ci";
 import { Link } from 'react-router-dom';
-
-import './header.sass'
 export default function Header({headerStyle}){
     const [style, setStyle] = useState(undefined)
     useEffect(( ) => {
@@ -15,12 +13,12 @@ export default function Header({headerStyle}){
 
     return (
         <header className={`container-header ` + style}>
-            <h1 className='project-title'>Gerenciador de Projetos</h1>
+            <h1 className='main-title'>Gerenciador de Projetos</h1>
 
             {!style && 
                 <nav className='header-links'>
                     <ul className='header-links-ul'>
-                        <li><Link to={'/'}>Home</Link></li>
+                        <li><Link to={'/'} className='link menu-link'>Home</Link></li>
 
                         <div className='header-links-ul-icons'>
                             <li><a href="#"><FaGithub className='icon light'/></a></li>

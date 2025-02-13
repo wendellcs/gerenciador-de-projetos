@@ -1,0 +1,26 @@
+@use '../base/_utilities'
+@use '../base/_variables'
+
+.container-signup
+    .signup-form 
+        @include utilities.form-style(500px)
+
+        .signup-input
+            @include utilities.input-style(100%)
+            @include utilities.input-text($pad-l: 10px)
+
+        &-title
+            @extend %title-decoration
+
+        &-box
+            @extend %form-box
+
+            &:not(:first-of-type)
+                margin-top: 20px
+
+            .signup-input
+                @include utilities.input-style(100%)
+
+        &-text 
+            text-align: center
+            margin: 10px 0 40px 0

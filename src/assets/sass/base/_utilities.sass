@@ -1,4 +1,5 @@
 @use './_variables'
+@use './_typography'
 
 // Mixins
 
@@ -10,16 +11,40 @@
     left: 2.5%
     background-color: $color
 
-@mixin form-title($width, $height)
-    font-size: 2.8rem
-    margin-top: 70px
-    margin-bottom: 40px
+@mixin form-style($width: 480px)
+    @extend %center-elements
+    flex-direction: column
+    border-radius: 50px
+    border: 1px solid variables.$primary-color 
+    width: 80%
+    max-width: $width
+    margin: 135px auto
+    background-color: variables.$bg-medium-color
+
+@mixin input-style($width)
+    height: 40px
+    border: 1px solid variables.$primary-color
+    border-radius: 8px
+    background-color: variables.$bg-dark-color 
+    max-width: 250px
+
+@mixin input-text($color: variables.$text-color, $align: left, $pad-l: 0px)
+    font-size: typography.$normal-font-size
+    color: $color
+    text-align: $align
+    padding-left: $pad-l
+
+
+// Placeholder Selectors
+
+%title-decoration
+    margin: 50px 0
     position: relative
 
     &:before , &:after 
         content: ''
-        width: $width
-        height: $height
+        width: 45%
+        height: 5px
         position: absolute
        
     &:before 
@@ -32,29 +57,6 @@
         left: 0
         bottom: -8px
 
-@mixin form-style($height , $width: 480px)
-    display: flex
-    flex-direction: column
-    align-items: center
-    border-radius: 50px
-    border: 1px solid variables.$primary-color 
-    width: 80%
-    max-width: $width
-    margin: 135px auto
-    background-color: variables.$bg-medium-color
-    height: $height
-
-@mixin input-style($width, $max-width)
-    height: 40px
-    border: 1px solid variables.$primary-color
-    border-radius: 12px
-    background-color: variables.$bg-dark-color
-    color: variables.$text-color
-    width: $width
-    max-width: $max-width
-
-// Placeholder Selectors
-    
 %todo-task-style
     .task 
         display: flex
@@ -87,11 +89,10 @@
                 color: variables.$primary-color
 
         &-name 
-            @include input-style(100%, 280px)
+            @include input-style(100%)
+            @include input-text($align: center)
             border: 0
             background-color: variables.$bg-light-color
-            text-align: center
-            padding: 0
 
             &::placeholder
                 color: variables.$primary-color
@@ -103,21 +104,10 @@
 
 %form-box
     width: 80%
-    max-width: 380px
+    max-width: 240px
     display: flex
     flex-direction: column 
     gap: 16px
-
-%form-text 
-    margin-top: 20px
-    font-family: 'Klee One', sans-serif
-    text-align: center
-    
-    p 
-        margin-bottom: 5px
-
-    a 
-        color: variables.$text-color
 
 %status-color 
     &.not-started 
@@ -131,3 +121,9 @@
 
     &.completed
         color: nth(variables.$light-color, 4)
+
+%body-text 
+    font-size: typography.$normal-font-size
+    font-family: typography.$main-font-family
+    font-weight: 400
+    color: variables.$text-color
