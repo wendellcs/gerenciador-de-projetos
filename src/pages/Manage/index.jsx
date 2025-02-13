@@ -21,7 +21,6 @@ export default function Manage(){
     
     const [task, setTask] = useState('')
     const [taskList, setTaskList] = useState([])
-    const [doneTaskList, setDoneTaskList] = useState([])
     
     const [projectStatus, setProjectStatus] = useState('')
     const [startDate, setStartDate] = useState('')
@@ -63,7 +62,6 @@ export default function Manage(){
     useEffect(() => {
         if  (projectData && projectData.taskList){
             setTaskList(projectData.taskList)
-            setDoneTaskList(projectData.taskList.filter(task => task.done))
         }
     }, [projectData])
 
@@ -89,28 +87,20 @@ export default function Manage(){
 
     function deleteTask(taskId){
         const updatedTaskList = taskList.filter(task => task.id !== taskId)
-        const updatedDoneTaskList = updatedTaskList.filter(task => task.done)
 
-        setDoneTaskList(updatedDoneTaskList)
         updateDataBase(updatedTaskList)
         setTaskList(updatedTaskList)
     }
 
     function toggleTaskDoneState(taskId){
-        // Refatorar isso 
-        const updatedTaskList = []
-        for(let task of taskList){
-            if(task.id == taskId){
-                task.done = !task.done
-                // updateDataBase(taskList)
-                updatedTaskList.push(...taskList)
-                break
+        const newTaskList = taskList.map(t => {
+            if(t.id === taskId){
+                return {...t, done:!t.done}
             }
-        }
-        const updatedDoneTaskList = taskList.filter(task => task.done)
-        // setDoneTaskList(updatedDoneTaskList)
-        
-        setTaskList(updatedTaskList)
+            return t
+        })
+        updateDataBase(newTaskList)
+        setTaskList(newTaskList)
     }
 
     function updateProject(e){
@@ -210,39 +200,23 @@ export default function Manage(){
 
                         <div className="todo">
                             <div className="tasks-container">
-                                <div className="tasks-todo">
-                                    {taskList.map(t => {
-                                        if(!t.done) {
-                                            return (
-                                                <div className='task' key={t.id}>
-                                                    <div className="delete-box" onClick={() => {deleteTask(t.id)}}>
-                                                        <FaTrashAlt className="icon delete"/>
-                                                    </div>
-                                                    
-                                                    <input type="text" placeholder={t.task} disabled={false} className="task-name" />
-                                                    <div className="done-box" onClick={() => {toggleTaskDoneState(t.id)}}></div>
-                                                </div>
-                                            )
-                                        }
-                                    })}
-                                </div>
-
-                                {/* <div className="tasks-done">
-                                    {doneTaskList.map((t) => {
-                                        return (
-                                            <div className='task' key={t.id}>
+                                {taskList.map(t => {
+                                    return (
+                                            <div className={t.done ? 'task done' : 'task'} key={t.id}>
                                                 <div className="delete-box" onClick={() => {deleteTask(t.id)}}>
                                                     <FaTrashAlt className="icon delete"/>
                                                 </div>
                                                 
-                                                <input type="text" placeholder={t.task} disabled={false} className="task-name" />
+                                                <input type="text" placeholder={t.task} disabled='true' className="task-name" />
                                                 <div className="done-box" onClick={() => {toggleTaskDoneState(t.id)}}>
-                                                    <FaCheck className="icon done"/>
+                                                    {t.done && (
+                                                        <FaCheck className="icon primary"/>
+                                                    )}
                                                 </div>
                                             </div>
-                                        )   
-                                    })}
-                                </div> */}
+                                        )
+                                    }
+                                )}
                             </div>
 
                             <div className="entry">
@@ -256,7 +230,7 @@ export default function Manage(){
                     </div>
 
                     <form className="container-edit">
-                        <h3 className="small-title form-title">Editar informações do projeto</h3>
+                        <h3 className="small-title form-title">Área de edição</h3>
 
                         <div className="left-box">
                             <div className="box">

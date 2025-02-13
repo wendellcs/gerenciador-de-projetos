@@ -89,7 +89,7 @@
                     .tasks 
                         color: variables.$secondary-light-color
                         font-size: typography.$big-font-size
-                    
+
                     &-status
                         .status 
                             font-size: typography.$small-font-size
@@ -110,56 +110,45 @@
 
             .tasks-container
                 flex: 1
-                overflow: hidden
-            
-                .done-tasks 
-                
-                    &:before
-                        display: none
+                @extend %todo-task-style
+                height: 250px
+                overflow: auto
+                position: relative
+                display: flex
+                flex-direction: column
+                   
+                &::-webkit-scrollbar 
+                    width: 5px
 
-                    .task
-                        &:first-of-type
-                            position: relative
+                &::-webkit-scrollbar-track 
+                    border: 2px solid variables.$bg-dark-color
+                    box-shadow: inset 0 0 5px variables.$primary-medium-color
+                    margin: 100px 0
+     
+                &::-webkit-scrollbar-thumb 
+                    border-radius: 4px
+                    background-color: variables.$secondary-color
 
-                            &:before 
-                                @include utilities.todo-list-before-style(1px, variables.$secondary-color)
+                &:before
+                    @include utilities.todo-list-before-style(4px)
 
-                        &-name 
-                            &::placeholder  
-                                color: variables.$secondary-color 
-
-                .tasks-todo, .tasks-done
-                    @extend %todo-task-style
-                    height: 250px
-                    overflow: auto
-
-                    &::-webkit-scrollbar 
-                        display: none
-                                            
-                .tasks-todo 
-                    position: relative
-
-                    &:before
-                        @include utilities.todo-list-before-style(4px)
-
-                    .task
-                        &:last-of-type
-                            margin-bottom: 30px
+                .task                                
                     .task-name 
+                        width: 300px
+                        border: 1px solid variables.$primary-color
                         @include utilities.input-text($align: center)
                         
                         &::placeholder
                             color: variables.$primary-color
 
-                .tasks-done
-                    position: relative
+                    &.done
+                        order: 999
+                        .task-name 
+                            border: 1px solid variables.$secondary-color
 
-                    &:before 
-                        @include utilities.todo-list-before-style($color: variables.$secondary-color)
-                        
-                    .task-name 
-                        &::placeholder
-                            color: variables.$secondary-color
+                            &::placeholder
+                                text-decoration: line-through
+                                color: variables.$secondary-color
                 
             .entry 
                 position: relative
